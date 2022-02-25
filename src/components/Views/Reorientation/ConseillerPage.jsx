@@ -19,18 +19,62 @@ import dynamique from "../../../assets/dynamique.svg";
 import rapide from "../../../assets/rapide.svg";
 import sensible from "../../../assets/sensible.svg";
 import respectueux from "../../../assets/respectueux.svg";
+import axios from "axios";
 
 const ConseillerPage = () => {
   const client = useClient();
 
   const { jsonFiles } = useJsonFiles();
   const [letters, setLetters] = useState([]);
+  const [ino, setIno] = useState({});
 
   const datas = jsonFiles.orientoi.data.jobCards;
   const badges = jsonFiles.orientoi.data.badges;
   console.log(badges);
 
+  const getFormations = (name, index) => {
+    axios
+      .get(
+        `https://api.inokufu.com/learningobject/v2/search-provider?lang=fr&model=strict&sort=popularity&distanceMax=100&max=20&address=cergy pontoise&match=best-effort&page=0&provider=CY Cergy Pontoise&keywords=${name}`,
+        {
+          headers: {
+            "x-api-key": "78HXmwkbulX2oLxRpEh1tzicH4dq524qnO4xgwd0"
+          }
+        }
+      )
+      .then(function(response) {
+        console.log(response.data);
+        setIno(prevIno => {
+          prevIno[index] = response.data.response.content;
+          return prevIno;
+        });
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  };
   useEffect(() => {
+    console.log(ino);
+  }, [ino]);
+
+  useEffect(() => {
+    // for (let i = 0; i < datas.length; i++) {
+    //   axios.get(
+    //     `https://api.inokufu.com/learningobject/v2/search-provider?lang=fr&model=strict&sort=popularity&distanceMax=100&max=20&address=cergy pontoise&match=best-effort&page=0&provider=CY Cergy Pontoise&keywords=${datas.name}`,
+    //     {
+    //       headers: {
+    //         "x-api-key": "78HXmwkbulX2oLxRpEh1tzicH4dq524qnO4xgwd0"
+    //       }
+    //     }
+    //       .then(function(response) {
+    //         console.log(response.data);
+    //         setIno(response.data.response.content);
+    //       })
+    //       .catch(function(error) {
+    //         console.error(error);
+    //       })
+    //   );
+    // }
     client
       .query(Q("visions.bilanorientation"))
       .then(res => {
@@ -54,10 +98,23 @@ const ConseillerPage = () => {
               <h3>Les métiers sur lesquels tu es positionné :</h3>
               <div className="content-lettre">
                 {datas.map(({ name, id, positionnement }, index) => (
-                  <div key={index} className="lettre">
-                    <img className="vectordeux" src={vectorDeux} alt="" />
-                    <p>{name}</p>
-                  </div>
+                  <Accordion className="content-accor">
+                    <AccordionSummary
+                      className="accor-title"
+                      onClick={() => getFormations(name, index)}
+                    >
+                      {name}
+                    </AccordionSummary>
+                    <AccordionDetails className="accor-detail">
+                      {ino[index] &&
+                        ino[index].map((formation, yndex) => (
+                          <div key={yndex} className="detail-formation-card">
+                            {console.log(formation)}
+                            <h2>{formation.title}</h2>
+                          </div>
+                        ))}
+                    </AccordionDetails>
+                  </Accordion>
                 ))}
               </div>
               <h3>Les secteurs sur lesquels tu es positionné :</h3>

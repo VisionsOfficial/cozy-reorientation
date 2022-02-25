@@ -205,7 +205,7 @@ const Detail = () => {
                   </div>
                 );
               })}
-            {jobreadyApiError && <div>ERROR</div>}
+            {jobreadyApiError && <div>Aucun softskills n'est trouvé </div>}
           </div>
         </AccordionDetails>
       </Accordion>
