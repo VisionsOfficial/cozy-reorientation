@@ -1,44 +1,45 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from "react";
 
-import { useClient } from 'cozy-client'
+import { useClient } from "cozy-client";
 
-import { fetchJsonFileByName } from '../../utils/fetchJsonFileByName'
+import { fetchJsonFileByName } from "../../utils/fetchJsonFileByName";
 
-const JsonFilesContext = createContext()
+const JsonFilesContext = createContext();
 // TODO Change the "name" attribute when connectors return JSON files instead of markdowns and check TODO on the fetchJsonFileByName file
 // Best idea: see "getReferencedFolder" in "cozy-client/models/folder"
 const jsonFilesDefault = {
   inokufu: {
-    name: 'Inokufu.md',
+    name: "Inokufu.json",
     data: [],
     dataLoaded: false
   },
   jobready: {
-    name: 'Jobready.md',
+    name: "jobready.json",
     data: [],
     dataLoaded: false
   },
   orientoi: {
-    name: 'Orientoi.md',
+    name: "orientoi.json",
     data: [],
     dataLoaded: false
   }
-}
+};
 
 const JsonFilesProvider = ({ children }) => {
-  const client = useClient()
+  const client = useClient();
   const [allDataStatus, setAllDataStatus] = useState({
     isLoading: false,
     isLoaded: false
-  })
-  const [jsonFiles, setJsonFiles] = useState(jsonFilesDefault)
+  });
+  const [jsonFiles, setJsonFiles] = useState(jsonFilesDefault);
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
-        setAllDataStatus({ isLoading: true, isLoaded: false })
+        setAllDataStatus({ isLoading: true, isLoaded: false });
         for (const [key, value] of Object.entries(jsonFilesDefault)) {
-          const jsonData = await fetchJsonFileByName(client, value.name)
+          const jsonData = await fetchJsonFileByName(client, value.name);
+          console.log(jsonData);
           setJsonFiles(prev => ({
             ...prev,
             [key]: {
@@ -46,23 +47,23 @@ const JsonFilesProvider = ({ children }) => {
               data: jsonData ? jsonData : [],
               dataLoaded: !!jsonData
             }
-          }))
+          }));
         }
 
-        setAllDataStatus({ isLoading: false, isLoaded: true })
+        setAllDataStatus({ isLoading: false, isLoaded: true });
       } catch (error) {
-        setAllDataStatus({ isLoading: false, isLoaded: false })
+        setAllDataStatus({ isLoading: false, isLoaded: false });
       }
-    })()
-  }, [client])
+    })();
+  }, [client]);
 
   return (
     <JsonFilesContext.Provider value={{ jsonFiles, allDataStatus }}>
       {children}
     </JsonFilesContext.Provider>
-  )
-}
+  );
+};
 
-export default JsonFilesContext
+export default JsonFilesContext;
 
-export { JsonFilesProvider }
+export { JsonFilesProvider };

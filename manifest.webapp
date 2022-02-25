@@ -1,5 +1,5 @@
 {
-  "name": "Bilan d'orientation",
+  "name": "Bilan de RéOrientation",
   "slug": "bilanorientation",
   "icon": "icon.svg",
   "categories": [],
@@ -34,9 +34,11 @@
       "type": "io.cozy.files",
       "verbs": ["ALL"]
     },
-    "mocks todos": {
-      "description": "TO REMOVE: only used as demonstration about Cozy App data interactions",
-      "type": "io.mocks.todos"
+    "orientation": {
+      "description": "",
+      "type": "visions.bilanorientation",
+      "verbs": ["ALL"]
     }
+    
   }
 }

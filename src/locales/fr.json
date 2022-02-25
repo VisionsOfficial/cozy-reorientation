@@ -33,7 +33,7 @@
   "positionning": "Positionnement",
   "educationalContents": "Mes contenus éducatifs",
   "jobCards": "Mes compatibilités avec les métiers sélectionnées",
-  "orientationReport": "Bilan d'orientation",
+  "orientationReport": "Bilan de RéOrientation",
   "JsonFilesProvider": {
     "jsonFiles": {
       "error": "%{name} est introuvable",

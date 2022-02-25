@@ -1,23 +1,23 @@
-import 'cozy-ui/transpiled/react/stylesheet.css'
-import 'cozy-ui/dist/cozy-ui.utils.min.css'
+import "cozy-ui/transpiled/react/stylesheet.css";
+import "cozy-ui/dist/cozy-ui.utils.min.css";
 
-import 'src/styles/index.styl'
+import "src/styles/index.styl";
 
-import React from 'react'
-import { render } from 'react-dom'
+import React from "react";
+import { render } from "react-dom";
 import {
   StylesProvider,
   createGenerateClassName
-} from '@material-ui/core/styles'
+} from "@material-ui/core/styles";
 
-import { CozyProvider } from 'cozy-client'
-import { I18n } from 'cozy-ui/transpiled/react/I18n'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { CozyProvider } from "cozy-client";
+import { I18n } from "cozy-ui/transpiled/react/I18n";
+import MuiCozyTheme from "cozy-ui/transpiled/react/MuiCozyTheme";
+import { BreakpointsProvider } from "cozy-ui/transpiled/react/hooks/useBreakpoints";
 
-import setupApp from 'src/targets/browser/setupApp'
-import App from 'src/components/App'
-import { JsonFilesProvider } from 'src/components/Context/JsonFilesProvider'
+import setupApp from "src/targets/browser/setupApp";
+import App from "src/components/App";
+import { JsonFilesProvider } from "src/components/Context/JsonFilesProvider";
 
 /*
 With MUI V4, it is possible to generate deterministic class names.
@@ -28,10 +28,10 @@ https://material-ui.com/styles/api/#stylesprovider
 */
 const generateClassName = createGenerateClassName({
   disableGlobal: true
-})
+});
 
 const init = function() {
-  const { root, client, lang, polyglot } = setupApp()
+  const { root, client, lang, polyglot } = setupApp();
   render(
     <StylesProvider generateClassName={generateClassName}>
       <CozyProvider client={client}>
@@ -47,14 +47,14 @@ const init = function() {
       </CozyProvider>
     </StylesProvider>,
     root
-  )
-}
+  );
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-  init()
-})
+document.addEventListener("DOMContentLoaded", () => {
+  init();
+});
 
 if (module.hot) {
-  init()
-  module.hot.accept()
+  init();
+  module.hot.accept();
 }

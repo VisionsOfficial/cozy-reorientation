@@ -1,43 +1,90 @@
 {
-    "badges": {
-        "ADAPTABLE": 10,
-        "CONCENTRE": 23,
-        "DYNAMIQUE": 9,
-        "OPTIMISTE": 13,
-        "RAPIDE": 17,
-        "RESPECTUEUX": 13,
-        "STUDIEUX": 15
+  "badges": [
+    {
+      "name": "adaptable",
+      "valeur": 10,
+      "icon": ""
     },
-    "jobCards": [
-        {
-            "name": "Comptabilité, gestion, ressources humaines",
-            "positionnement": "ça me correspond",
-            "type": "Secteur d''activité"
-        },
-        {
-            "name": "Economiste d'entreprise",
-            "positionnement": "ça me correspond",
-            "type": "Métier"
-        },
-        {
-            "name": "Chargé / Chargée de mission RH diversité handicap",
-            "positionnement": "ça me correspond",
-            "type": "Métier"
-        },
-        {
-            "name": "UX designer",
-            "positionnement": "Je ne sais pas",
-            "type": "Métier"
-        },
-        {
-            "name": "Travailler en startup",
-            "positionnement": "ça me correspond",
-            "type": "Contexte professionnel"
-        },
-        {
-            "name": "Gestionnaire paie",
-            "positionnement": "ça ne me correspond pas",
-            "type": "Métier"
-        }
-    ]
+    {
+      "name": "concentre",
+      "valeur": 23,
+      "icon": ""
+    },
+    {
+      "name": "dynamique",
+      "valeur": 9,
+      "icon": ""
+    },
+    {
+      "name": "optimiste",
+      "valeur": 13,
+      "icon": ""
+    },
+    {
+      "name": "rapide",
+      "valeur": 17,
+      "icon": ""
+    },
+    {
+      "name": "respectueux",
+      "valeur": 13,
+      "icon": ""
+    },
+    {
+      "name": "studieux",
+      "valeur": 15,
+      "icon": ""
+    }
+  ],
+
+  "jobCards": [
+    {
+      "id": 1,
+      "name": "Comptabilité, gestion, ressources humaines",
+      "slug": "Comptabilité,gestion,ressourceshumaines",
+      "positionnement": "ça me correspond",
+      "type": "Secteur d'activité",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    },
+    {
+      "id": 2,
+      "name": "Economiste d'entreprise",
+      "slug": "Economisted'entreprise",
+      "positionnement": "ça me correspond",
+      "type": "Métier",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    },
+    {
+      "id": 3,
+      "name": "Chargé / Chargée de mission RH diversité handicap",
+      "slug": "Chargé/ChargéedemissionRHdiversitéhandicap",
+      "positionnement": "ça me correspond",
+      "type": "Métier",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    },
+    {
+      "id": 4,
+      "name": "UX designer",
+      "slug": "uxdesigner",
+      "positionnement": "Je ne sais pas",
+      "type": "Métier",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    },
+    {
+      "id": 5,
+      "name": "Travailler en startup",
+      "slug": "travaillerenstartup",
+      "positionnement": "ça me correspond",
+      "type": "Contexte professionnel",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    },
+    {
+      "id": 6,
+      "name": "Gestionnaire paie",
+      "slug": "gestionnairepaie",
+      "positionnement": "ça ne me correspond pas",
+      "type": "Métier",
+      "description": "Aujourd’hui, l’association CECF a besoin d’une équipe pour la création d'une radio sur internet.Mission : créer une radio sur internFaire une étude de faisabilité - Déterminer le coût - Définir un plan d'action pour créer la webradio.PS: Mission réalisable en groupe, le soir, en journée, week-end, vacances scolaires, depuis son domicile et dans toute la France selon vos disponibilités. seniors"
+    }
+  ]
 }
