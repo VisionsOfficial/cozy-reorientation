@@ -1,1 +1,1 @@
-export const TODOS_DOCTYPE = 'io.mocks.todos'
+export const TODOS_DOCTYPE = "io.mocks.todos";

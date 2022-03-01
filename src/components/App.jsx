@@ -25,10 +25,10 @@ import ConseillerPage from "src/components/Views/Reorientation/ConseillerPage.js
 import useBreakpoints from "cozy-ui/transpiled/react/hooks/useBreakpoints";
 
 import Header from "src/components/Header";
-import List from "src/components/List";
-import SoftSkillsPage from "src/components/Views/SoftSkillsPage";
-import JobExplorationsPage from "src/components/Views/JobExplorationsPage";
-import WipPage from "src/components/Views/WipPage";
+// import List from "src/components/List";
+// import SoftSkillsPage from "src/components/Views/SoftSkillsPage";
+// import JobExplorationsPage from "src/components/Views/JobExplorationsPage";
+// import WipPage from "src/components/Views/WipPage";
 import { useJsonFiles } from "src/components/Hooks/useJsonFiles";
 
 const styles = {

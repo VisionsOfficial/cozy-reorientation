@@ -1,3 +1,3 @@
-import JobExplorationsPage from './JobExplorationsPage'
+import JobExplorationsPage from "./JobExplorationsPage";
 
-export default JobExplorationsPage
+export default JobExplorationsPage;

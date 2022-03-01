@@ -39,7 +39,6 @@ const JsonFilesProvider = ({ children }) => {
         setAllDataStatus({ isLoading: true, isLoaded: false });
         for (const [key, value] of Object.entries(jsonFilesDefault)) {
           const jsonData = await fetchJsonFileByName(client, value.name);
-          console.log(jsonData);
           setJsonFiles(prev => ({
             ...prev,
             [key]: {

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 import chev from "../../../assets/chev.png";
 import vector from "../../../assets/vector-formation.png";
 import vectorSoft from "../../../assets/vector-soft.png";
-import vectorBilan from "../../../assets/vector-bilan.png";
+// import vectorBilan from "../../../assets/vector-bilan.png";
 import TabNavReo from "./componentsReo/TabNav";
 import Conseiller from "./componentsReo/Conseiller";
 

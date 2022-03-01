@@ -50,10 +50,12 @@ const ReoSlider = () => {
       <RouterLink
         to="/home"
         className={
-          toggleState === 5 ? " v-btn-next-home btn-slide" : "btn-disable"
+          toggleState === 5
+            ? "v-btn-next v-btn-next-home btn-slide"
+            : "btn-disable"
         }
       >
-        C'est parti !
+        {"C'est parti !"}
       </RouterLink>
       <div className="contener-dot">
         <div

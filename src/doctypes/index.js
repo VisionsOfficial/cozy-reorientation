@@ -1,4 +1,4 @@
-import { TODOS_DOCTYPE } from './todos'
+import { TODOS_DOCTYPE } from "./todos";
 
 // the documents schema, necessary for CozyClient
 export default {
@@ -7,7 +7,7 @@ export default {
     attributes: {},
     relationships: {}
   }
-}
+};
 
 // export all doctypes for the application
-export * from './todos'
+export * from "./todos";

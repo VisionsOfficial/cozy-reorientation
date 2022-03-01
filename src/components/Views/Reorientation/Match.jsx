@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { NavLink as RouterLink } from "react-router-dom";
-import chev from "../../../assets/chev.png";
+// import { NavLink as RouterLink } from "react-router-dom";
+// import chev from "../../../assets/chev.png";
 import vectorTrois from "../../../assets/vector-trois.png";
 import vectorUn from "../../../assets/vector-un.png";
-import vectorDeux from "../../../assets/vector-deux.png";
+// import vectorDeux from "../../../assets/vector-deux.png";
 import Conseiller from "./componentsReo/Conseiller";
 import TabNavReo from "./componentsReo/TabNav";
-import FileInput from "cozy-ui/transpiled/react/FileInput";
-import upload from "../../../assets/upload-icon.png";
-import Textarea from "cozy-ui/transpiled/react/Textarea";
+// import FileInput from "cozy-ui/transpiled/react/FileInput";
+// import upload from "../../../assets/upload-icon.png";
+// import Textarea from "cozy-ui/transpiled/react/Textarea";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import question from "../../../assets/question.png";
 import { useClient, Q } from "cozy-client";
 import { useJsonFiles } from "../../Hooks/useJsonFiles";
+import log from "cozy-logger";
+import axios from "axios";
 
 const SoftSkills = () => {
   const client = useClient();
@@ -26,21 +28,21 @@ const SoftSkills = () => {
 
   const [letters, setLetters] = useState([]);
   const [toggleMatch, setToggleMatch] = useState(1);
+
   useEffect(() => {
     client
       .query(Q("visions.bilanorientation"))
       .then(res => {
         setLetters(res.data);
-        console.log(res);
       })
       .catch(err => {
-        console.log(err);
+        alert(err.message);
       });
-  }, []);
-  console.log(letters);
+  }, [client]);
+
   const toggleSoftSkills = index => {
-    const selectedLetter = letters[selectedLetterIndex];
-    const selectedJob = datas.find(element.id == selectedJobId);
+    // const selectedLetter = letters[selectedLetterIndex];
+    const selectedJob = datas.find(element => element.id == selectedJobId);
 
     let myJobreadySoftSkills = [];
     let jobCardsJobreadySoftSkills = [];
@@ -70,14 +72,14 @@ const SoftSkills = () => {
         mission: letters.description
       }
     };
-    console.log(letters.description);
+
     axios
       .request(selectedLetterContent)
       .then(function(response) {
         myJobreadySoftSkills(response);
       })
       .catch(function(error) {
-        console.error(error);
+        log("error", error.message);
       });
     axios
       .request(selectedJobContent)
@@ -85,7 +87,7 @@ const SoftSkills = () => {
         jobCardsJobreadySoftSkills(response);
       })
       .catch(function(error) {
-        console.error(error);
+        log("error", error.message);
       });
 
     const match = getMatchedSoftSkills(
@@ -95,7 +97,7 @@ const SoftSkills = () => {
     setMatchedSoftSkills(match);
 
     setToggleMatch(index);
-    console.log(index);
+    log("debug", index);
   };
 
   const getMatchedSoftSkills = (mySoftSkills, jobSoftSkills) => {
@@ -108,7 +110,7 @@ const SoftSkills = () => {
         <h2>Match les soft skills !</h2>
         <p>Sélectionne la lettre de motivation que tu souhaites matcher :</p>
         <div className="content-lettre match">
-          {letters.map(({ content, title }, index) => {
+          {letters.map(({ title }, index) => {
             return (
               <div key={index} className="lettre">
                 <input
@@ -126,7 +128,7 @@ const SoftSkills = () => {
         </div>
         <p>Puis le métier :</p>
         <div className="content-lettre match">
-          {datas.map(({ name, id, positionnement }, index) => (
+          {datas.map(({ name, id }, index) => (
             <div key={index} className="lettre">
               <input
                 type="radio"

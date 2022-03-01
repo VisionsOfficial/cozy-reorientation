@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
-import chev from "../../../assets/chev.png";
+// import chev from "../../../assets/chev.png";
 import vectorTrois from "../../../assets/vector-trois.png";
 import vectorUn from "../../../assets/vector-un.png";
 import vectorDeux from "../../../assets/vector-deux.png";
@@ -10,26 +10,69 @@ import upload from "../../../assets/upload-icon.png";
 import Textarea from "cozy-ui/transpiled/react/Textarea";
 import Conseiller from "./componentsReo/Conseiller";
 import { useClient } from "cozy-client";
+// import log from "cozy-logger";
 
 const SoftSkills = () => {
   const client = useClient();
-
-  const saveLetter = async () => {
-    const response = await client.save({
-      _type: "visions.bilanorientation",
-      title: letterTitle.current.value,
-      content: letterContent.current.value
-    });
-    toggle(3);
-  };
   const [toggleSoft, setToggleSoft] = useState(1);
+  const [letters, setLetters] = useState([
+    { title: "Stage Master", content: "Tmp" },
+    { title: "Contrat alternance", content: "Tmp" },
+    { title: "Entretien", content: "Tmp" }
+  ]);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [fileUploadText, setFileUploadText] = useState(
+    "Importer une lettre de motivation (pdf, word)"
+  );
+
   const letterContent = useRef();
   const letterTitle = useRef();
 
+  const styleVectors = [vectorUn, vectorDeux, vectorTrois];
+
+  const saveLetter = () => {
+    if (uploadedFile) {
+      client
+        .save({
+          _type: "visions.reorientation",
+          title: uploadedFile.name
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      client
+        .save({
+          _type: "visions.reorientation",
+          title: letterTitle.current.value,
+          content: letterContent.current.value
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    toggle(3);
+  };
+
   const toggle = index => {
     setToggleSoft(index);
-    console.log(index);
   };
+
+  const alertFileInput = fileData => {
+    setUploadedFile(fileData);
+  };
+
+  useEffect(() => {
+    if (uploadedFile) {
+      setFileUploadText(uploadedFile.name);
+    }
+  }, [uploadedFile]);
 
   return (
     <div className="Soft">
@@ -41,20 +84,15 @@ const SoftSkills = () => {
         </p>
         <p>Match les ensuite avec les soft skills des fiches métiers !</p>
 
-        <FileInput className="file-selector" onChange={console.log}>
-          <img src={upload} alt="" />
-          <span role="button">Importe une lettre de motivation</span>
-        </FileInput>
-
         <button onClick={() => toggle(2)} className="v-btn-next">
-          Confirmer
+          Continuer
         </button>
       </div>
       <div className={toggleSoft === 2 ? "flex" : "none"}>
         <h2>Ta lettre de motivation</h2>
-        <FileInput className="file-selector" onChange={console.log}>
+        <FileInput className="file-selector" onChange={alertFileInput}>
           <img src={upload} alt="" />
-          <span role="button">Importe une lettre de motivation</span>
+          <span role="button">{fileUploadText}</span>
         </FileInput>
         <h3>Ecris ta lettre de motivation :</h3>
         <Textarea className="textArea" ref={letterContent}></Textarea>
@@ -76,17 +114,20 @@ const SoftSkills = () => {
         </p>
         <p>Match les ensuite avec les soft skills des fiches métiers !</p>
 
-        <FileInput className="file-selector" onChange={console.log}>
+        <FileInput className="file-selector" onChange={alertFileInput}>
           <img src={upload} alt="" />
-          <span role="button">Importe une lettre de motivation</span>
+          <span role="button">{fileUploadText}</span>
         </FileInput>
 
+        {/* //! Hardcoded letters */}
         <div className="content-lettre">
-          <RouterLink to="/detailLm" className="lettre">
-            <img className="vectorun" src={vectorUn} alt="" />
-            <p>LM - Stage master</p>
-          </RouterLink>
-
+          {letters.map((letter, index) => (
+            <RouterLink key={index} to={"/detailLm" + index} className="lettre">
+              <img className={"vector" + index} src={styleVectors[index]} />
+              <p>LM - {letter.title}</p>
+            </RouterLink>
+          ))}
+          {/* 
           <div className="lettre">
             <img className="vectordeux" src={vectorDeux} alt="" />
             <p>LM - Contrat alternance</p>
@@ -94,14 +135,14 @@ const SoftSkills = () => {
           <div className="lettre">
             <img className="vectortrois" src={vectorTrois} alt="" />
             <p>LM - Entretien</p>
-          </div>
+          </div> */}
         </div>
 
         <RouterLink
           to="/matchSoft"
           className={toggleSoft === 3 ? "v-btn-next trois" : "none"}
         >
-          Choisi la lettre et le métier à matcher
+          Choisis la lettre et le métier à matcher
         </RouterLink>
 
         <Conseiller />

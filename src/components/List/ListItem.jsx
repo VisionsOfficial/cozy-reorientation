@@ -1,21 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import UiListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import UiListItem from "cozy-ui/transpiled/react/MuiCozyTheme/ListItem";
 import ListItemIcon, {
   smallSize
-} from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
-import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+} from "cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon";
+import Icon from "cozy-ui/transpiled/react/Icon";
+import ListItemText from "cozy-ui/transpiled/react/ListItemText";
+import ListItemSecondaryAction from "cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction";
+import Divider from "cozy-ui/transpiled/react/MuiCozyTheme/Divider";
+import RightIcon from "cozy-ui/transpiled/react/Icons/Right";
 
 const style = {
   link: {
-    textDecoration: 'none'
+    textDecoration: "none"
   }
-}
+};
 
 const ListItem = ({ link, leftIcon, text, noDivider }) => {
   return (
@@ -37,11 +37,11 @@ const ListItem = ({ link, leftIcon, text, noDivider }) => {
       </Link>
       {!noDivider && <Divider variant="inset" />}
     </>
-  )
-}
+  );
+};
 
 ListItem.defaultProps = {
   hasDivider: false
-}
+};
 
-export default ListItem
+export default ListItem;

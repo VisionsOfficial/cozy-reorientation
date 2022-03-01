@@ -34,11 +34,10 @@
       "type": "io.cozy.files",
       "verbs": ["ALL"]
     },
-    "orientation": {
-      "description": "",
-      "type": "visions.bilanorientation",
+    "reorientation": {
+      "description": "Information on the Visions Bilan de Réorientation",
+      "type": "visions.reorientation",
       "verbs": ["ALL"]
     }
-    
   }
 }

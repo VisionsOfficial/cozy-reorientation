@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import JobReady from './JobReady'
-import SoftSkills from './SoftSkills'
+import JobReady from "./JobReady";
+import SoftSkills from "./SoftSkills";
 
 const SoftSkillsPage = () => {
   //
@@ -10,7 +10,7 @@ const SoftSkillsPage = () => {
       <JobReady />
       <SoftSkills />
     </>
-  )
-}
+  );
+};
 
-export default SoftSkillsPage
+export default SoftSkillsPage;

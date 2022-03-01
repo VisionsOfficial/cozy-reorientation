@@ -29,7 +29,6 @@ export const fetchJsonFileByName = async (client, name) => {
       as: `fetchJsonFileByName/${name}`,
       fetchPolicy: fetchPolicies.noFetch()
     });
-    console.log(data);
 
     // FIX Data also contains the files flaged "trashed", see https://github.com/cozy/cozy-client/issues/1091
     const result = data ? data.filter(d => !d.trashed) : [];

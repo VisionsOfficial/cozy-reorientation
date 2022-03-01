@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
-import chev from "../../../assets/chev.png";
-import vectorTrois from "../../../assets/vector-trois.png";
-import vectorUn from "../../../assets/vector-un.png";
+// import chev from "../../../assets/chev.png";
+// import vectorTrois from "../../../assets/vector-trois.png";
+// import vectorUn from "../../../assets/vector-un.png";
 import vectorDeux from "../../../assets/vector-deux.png";
 import TabNavReo from "./componentsReo/TabNav";
-import FileInput from "cozy-ui/transpiled/react/FileInput";
-import upload from "../../../assets/upload-icon.png";
-import Textarea from "cozy-ui/transpiled/react/Textarea";
+// import FileInput from "cozy-ui/transpiled/react/FileInput";
+// import upload from "../../../assets/upload-icon.png";
+// import Textarea from "cozy-ui/transpiled/react/Textarea";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-import question from "../../../assets/question.png";
-import Conseiller from "./componentsReo/Conseiller";
+// import question from "../../../assets/question.png";
+// import Conseiller from "./componentsReo/Conseiller";
 import { useJsonFiles } from "../../Hooks/useJsonFiles";
 import { useClient, Q } from "cozy-client";
 import dynamique from "../../../assets/dynamique.svg";
@@ -29,8 +29,7 @@ const ConseillerPage = () => {
   const [ino, setIno] = useState({});
 
   const datas = jsonFiles.orientoi.data.jobCards;
-  const badges = jsonFiles.orientoi.data.badges;
-  console.log(badges);
+  // const badges = jsonFiles.orientoi.data.badges;
 
   const getFormations = (name, index) => {
     axios
@@ -43,18 +42,21 @@ const ConseillerPage = () => {
         }
       )
       .then(function(response) {
-        console.log(response.data);
         setIno(prevIno => {
           prevIno[index] = response.data.response.content;
           return prevIno;
         });
       })
       .catch(function(error) {
-        console.error(error);
+        /* eslint-disable no-console */
+        console.log(error);
+        /* eslint-enable no-console */
       });
   };
   useEffect(() => {
+    /* eslint-disable no-console */
     console.log(ino);
+    /* eslint-enable no-console */
   }, [ino]);
 
   useEffect(() => {
@@ -79,12 +81,16 @@ const ConseillerPage = () => {
       .query(Q("visions.bilanorientation"))
       .then(res => {
         setLetters(res.data);
+        /* eslint-disable no-console */
         console.log(res);
+        /* eslint-enable no-console */
       })
       .catch(err => {
+        /* eslint-disable no-console */
         console.log(err);
+        /* eslint-enable no-console */
       });
-  }, []);
+  }, [client]);
   return (
     <div className="Detaillm">
       <div className="flex">
@@ -97,8 +103,8 @@ const ConseillerPage = () => {
             <div className="contener-info">
               <h3>Les métiers sur lesquels tu es positionné :</h3>
               <div className="content-lettre">
-                {datas.map(({ name, id, positionnement }, index) => (
-                  <Accordion className="content-accor">
+                {datas.map(({ name }, index) => (
+                  <Accordion key={index} className="content-accor">
                     <AccordionSummary
                       className="accor-title"
                       onClick={() => getFormations(name, index)}
@@ -109,7 +115,6 @@ const ConseillerPage = () => {
                       {ino[index] &&
                         ino[index].map((formation, yndex) => (
                           <div key={yndex} className="detail-formation-card">
-                            {console.log(formation)}
                             <h2>{formation.title}</h2>
                           </div>
                         ))}
@@ -119,17 +124,17 @@ const ConseillerPage = () => {
               </div>
               <h3>Les secteurs sur lesquels tu es positionné :</h3>
               <div className="content-lettre">
-                {/* {datas.map(({ secteur }, index) => (
+                {datas.map(({ secteur }, index) => (
                   <div key={index} className="lettre">
                     <img className="vectordeux" src={vectorDeux} alt="" />
                     <p>{secteur}</p>
                   </div>
-                ))} */}
+                ))}
               </div>
 
               <h3>Tes lettres de motivations :</h3>
               <div className="content-lettre">
-                {letters.map(({ content, title }, index) => {
+                {letters.map(({ title }, index) => {
                   return (
                     <div key={index} className="lettre">
                       <img className="vectordeux" src={vectorDeux} alt="" />

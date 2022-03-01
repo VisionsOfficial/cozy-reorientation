@@ -1,3 +1,3 @@
-import SoftSkillsPage from './SoftSkillsPage'
+import SoftSkillsPage from "./SoftSkillsPage";
 
-export default SoftSkillsPage
+export default SoftSkillsPage;

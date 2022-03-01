@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import JobCards from './JobCards'
-import EducationalContents from './EducationalContents'
+import JobCards from "./JobCards";
+import EducationalContents from "./EducationalContents";
 
 const JobExplorationsPage = () => {
   //
@@ -10,7 +10,7 @@ const JobExplorationsPage = () => {
       <JobCards />
       <EducationalContents />
     </>
-  )
-}
+  );
+};
 
-export default JobExplorationsPage
+export default JobExplorationsPage;

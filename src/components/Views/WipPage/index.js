@@ -1,3 +1,3 @@
-import WipPage from './WipPage'
+import WipPage from "./WipPage";
 
-export default WipPage
+export default WipPage;

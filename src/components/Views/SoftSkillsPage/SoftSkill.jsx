@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from "cozy-ui/transpiled/react/Typography";
+import Icon from "cozy-ui/transpiled/react/Icon";
 
-import StarIcon from '../../../assets/icons/icon-star.svg'
+import StarIcon from "../../../assets/icons/icon-star.svg";
 
 const styles = {
   icon: {
-    marginBottom: '0.5rem'
+    marginBottom: "0.5rem"
   },
   text: {
-    textTransform: 'capitalize'
+    textTransform: "capitalize"
   }
-}
+};
 
 const SoftSkill = ({ label, value }) => {
   //
@@ -23,7 +23,7 @@ const SoftSkill = ({ label, value }) => {
         {label} : {value}
       </Typography>
     </div>
-  )
-}
+  );
+};
 
-export default SoftSkill
+export default SoftSkill;

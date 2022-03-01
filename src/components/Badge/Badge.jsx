@@ -1,24 +1,24 @@
-import React from 'react'
+import React from "react";
 
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from "cozy-ui/transpiled/react/Typography";
+import Icon from "cozy-ui/transpiled/react/Icon";
 
-import IdeaIcon from '../../assets/icons/icon-idea.svg'
+import IdeaIcon from "../../assets/icons/icon-idea.svg";
 
 const styles = {
   icon: {
-    marginBottom: '0.5rem'
+    marginBottom: "0.5rem"
   },
   title: {
-    textTransform: 'capitalize',
-    color: '#21BBEF',
-    width: '100%',
-    textAlign: 'center'
+    textTransform: "capitalize",
+    color: "#21BBEF",
+    width: "100%",
+    textAlign: "center"
   },
   subText: {
     fontWeight: 200
   }
-}
+};
 
 const Badge = ({ title, mainText, subText }) => {
   return (
@@ -34,7 +34,7 @@ const Badge = ({ title, mainText, subText }) => {
         {subText}
       </Typography>
     </div>
-  )
-}
+  );
+};
 
-export default Badge
+export default Badge;
