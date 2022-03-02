@@ -6,7 +6,7 @@ const Conseiller = () => {
   return (
     <div>
       <RouterLink to="/Partage-a-ton-conseiller">
-        <img className="conseille" src={conseiller} alt="" />
+        <img className="conseiller" src={conseiller} alt="" />
       </RouterLink>
     </div>
   );

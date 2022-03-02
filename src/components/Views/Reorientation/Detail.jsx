@@ -10,6 +10,9 @@ import ot from "../../../datas/orientoi.json";
 import axios from "axios";
 import log from "cozy-logger";
 import InokufuCard from "./componentsReo/inokufu-card/InokufuCard";
+import Loader from "./componentsReo/loader/Loader";
+
+import "../../../styles/buttons/buttons.styl";
 
 const Detail = () => {
   const { id } = useParams();
@@ -170,6 +173,7 @@ const Detail = () => {
           <AccordionDetails className="accor-detail">
             {!inokufuApiError &&
               inokufuDataLoaded &&
+              inokufuData.length != 0 &&
               inokufuData.map(
                 (
                   { title, name, url, picture, description, address },
@@ -186,7 +190,10 @@ const Detail = () => {
                   />
                 )
               )}
-            {!inokufuApiError && !inokufuDataLoaded && <h3>Chargement...</h3>}
+            {!inokufuApiError &&
+              inokufuDataLoaded &&
+              inokufuData.length == 0 && <h3>Aucune formation associée</h3>}
+            {!inokufuApiError && !inokufuDataLoaded && <Loader />}
             {inokufuApiError && <h3>Erreur lors du chargement des données</h3>}
           </AccordionDetails>
         </Accordion>
@@ -217,14 +224,19 @@ const Detail = () => {
             </div>
           </AccordionDetails>
         </Accordion>
-        <RouterLink to="/SoftSkills" className="v-btn-next">
-          Match avec tes soft skills
-        </RouterLink>
+        <div className="v-btn-container">
+          <RouterLink to="/SoftSkills" className="v-btn-nav">
+            Match avec tes soft skills
+          </RouterLink>
+          <RouterLink to="/Formation" className="v-btn-nav">
+            Retour aux formations
+          </RouterLink>
+        </div>
         <Conseiller />
       </div>
     );
   } else {
-    return <h2>Chargement ...</h2>;
+    return <Loader />;
   }
 };
 

@@ -31,7 +31,7 @@ const SoftSkills = () => {
 
   useEffect(() => {
     client
-      .query(Q("visions.bilanorientation"))
+      .query(Q("visions.reorientation"))
       .then(res => {
         setLetters(res.data);
       })

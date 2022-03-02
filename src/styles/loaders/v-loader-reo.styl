@@ -1,0 +1,37 @@
+.vt-loader-reo
+  display inline-block
+  width 80px
+  height 80px
+
+.vt-loader-reo:after
+  content " "
+  display: block
+  width 64px
+  height 64px
+  margin: 8px
+  border-radius 50%
+  border: 6px solid #fff
+  border-color rgba(33,187,239,0.4) transparent #fff transparent
+  animation vt-loader-reo 1.2s linear infinite
+
+.vt-loader-small-reo
+  display inline-block
+  width 10px
+  height 10px
+
+.vt-loader-small-reo:after
+  content " "
+  display: block
+  width 11px
+  height 11px
+  margin: 5px
+  border-radius 50%
+  border: 3px solid #fff
+  border-color rgba(33,187,239,0.4) transparent #fff transparent
+  animation vt-loader-reo 1.2s linear infinite
+
+@keyframes vt-loader-reo
+  0%
+    transform rotate(0deg)
+  100%
+    transform rotate(360deg)

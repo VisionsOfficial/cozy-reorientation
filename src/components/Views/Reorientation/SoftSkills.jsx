@@ -1,26 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 // import chev from "../../../assets/chev.png";
-import vectorTrois from "../../../assets/vector-trois.png";
-import vectorUn from "../../../assets/vector-un.png";
-import vectorDeux from "../../../assets/vector-deux.png";
 import TabNavReo from "./componentsReo/TabNav";
 import FileInput from "cozy-ui/transpiled/react/FileInput";
 import upload from "../../../assets/upload-icon.png";
 import Textarea from "cozy-ui/transpiled/react/Textarea";
+import Letter from "./componentsReo/letter/Letter";
 import Conseiller from "./componentsReo/Conseiller";
-import { useClient } from "cozy-client";
-// import log from "cozy-logger";
+import { useClient, Q } from "cozy-client";
+import log from "cozy-logger";
+
+import "../../../styles/buttons/buttons.styl";
+import "../../../styles/letters/letters.styl";
+
+const VISIONS_DOCTYPE = "visions.reorientation";
 
 const SoftSkills = () => {
   const client = useClient();
   const [toggleSoft, setToggleSoft] = useState(1);
-  const [letters, setLetters] = useState([
-    { title: "Stage Master", content: "Tmp" },
-    { title: "Contrat alternance", content: "Tmp" },
-    { title: "Entretien", content: "Tmp" }
-  ]);
+  const [letters, setLetters] = useState([]);
+
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [fileUploadError, setFileUploadError] = useState(false);
   const [fileUploadText, setFileUploadText] = useState(
     "Importer une lettre de motivation (pdf, word)"
   );
@@ -28,17 +30,33 @@ const SoftSkills = () => {
   const letterContent = useRef();
   const letterTitle = useRef();
 
-  const styleVectors = [vectorUn, vectorDeux, vectorTrois];
+  useEffect(() => {
+    const queryDef = Q(VISIONS_DOCTYPE).where({
+      currentType: "motivation-letter"
+    });
+    client
+      .query(queryDef)
+      .then(res => {
+        setLetters(res.data);
+      })
+      .catch(err => {
+        log("error", `Could not fetch motivation letters: ${err.message}`);
+      });
+  }, [client]);
 
   const saveLetter = () => {
+    if (!letterTitle.current.value)
+      return alert("Veuillez donner un nom à votre lettre de motivation");
+
     if (uploadedFile) {
       client
         .save({
-          _type: "visions.reorientation",
-          title: uploadedFile.name
+          _type: "io.cozy.files",
+          currentType: "motivation-letter",
+          title: letterTitle.current.value
         })
         .then(res => {
-          console.log(res);
+          setLetters([...letters, res.data]);
         })
         .catch(err => {
           console.log(err);
@@ -47,17 +65,30 @@ const SoftSkills = () => {
       client
         .save({
           _type: "visions.reorientation",
+          currentType: "motivation-letter",
           title: letterTitle.current.value,
           content: letterContent.current.value
         })
         .then(res => {
-          console.log(res);
+          setLetters([...letters, res.data]);
         })
         .catch(err => {
           console.log(err);
         });
     }
     toggle(3);
+  };
+
+  const deleteLetter = letter => {
+    client
+      .destroy(letter)
+      .then(res => {
+        log("info", `deleter letter ${res.data.title} of id ${res.data.id}`);
+        setLetters(letters.filter(l => l.id != res.data.id));
+      })
+      .catch(err => {
+        log("error", `Failed to delete letter: ${err.message}`);
+      });
   };
 
   const toggle = index => {
@@ -83,8 +114,7 @@ const SoftSkills = () => {
           qui y sont associés.
         </p>
         <p>Match les ensuite avec les soft skills des fiches métiers !</p>
-
-        <button onClick={() => toggle(2)} className="v-btn-next">
+        <button onClick={() => toggle(2)} className="v-btn-nav">
           Continuer
         </button>
       </div>
@@ -102,8 +132,11 @@ const SoftSkills = () => {
           size="tiny"
           ref={letterTitle}
         ></Textarea>
-        <button onClick={() => saveLetter()} className="v-btn-next softbtn">
+        <button onClick={() => saveLetter()} className="v-btn-nav">
           Confirmer
+        </button>
+        <button onClick={() => toggle(3)} className="v-btn-nav">
+          Voir mes lettres
         </button>
       </div>
       <div className={toggleSoft === 3 ? "flex" : "none"}>
@@ -114,28 +147,19 @@ const SoftSkills = () => {
         </p>
         <p>Match les ensuite avec les soft skills des fiches métiers !</p>
 
-        <FileInput className="file-selector" onChange={alertFileInput}>
-          <img src={upload} alt="" />
-          <span role="button">{fileUploadText}</span>
-        </FileInput>
+        <button onClick={() => toggle(2)} className="v-btn-nav">
+          Ecrire ou importer une lettre
+        </button>
 
-        {/* //! Hardcoded letters */}
-        <div className="content-lettre">
+        <div className="letter-container">
           {letters.map((letter, index) => (
-            <RouterLink key={index} to={"/detailLm" + index} className="lettre">
-              <img className={"vector" + index} src={styleVectors[index]} />
-              <p>LM - {letter.title}</p>
-            </RouterLink>
+            <Letter
+              letter={letter}
+              index={index}
+              deleteLetter={deleteLetter}
+              key={index}
+            />
           ))}
-          {/* 
-          <div className="lettre">
-            <img className="vectordeux" src={vectorDeux} alt="" />
-            <p>LM - Contrat alternance</p>
-          </div>
-          <div className="lettre">
-            <img className="vectortrois" src={vectorTrois} alt="" />
-            <p>LM - Entretien</p>
-          </div> */}
         </div>
 
         <RouterLink

@@ -1,14 +1,6 @@
 import React from "react";
-// import { NavLink as RouterLink } from "react-router-dom";
-// import chev from "../../../assets/chev.png";
-// import vectorTrois from "../../../assets/vector-trois.png";
-// import vectorUn from "../../../assets/vector-un.png";
-// import vectorDeux from "../../../assets/vector-deux.png";
 import Conseiller from "./componentsReo/Conseiller";
 import TabNavReo from "./componentsReo/TabNav";
-// import FileInput from "cozy-ui/transpiled/react/FileInput";
-// import upload from "../../../assets/upload-icon.png";
-// import Textarea from "cozy-ui/transpiled/react/Textarea";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -83,7 +75,6 @@ const DetailLm = () => {
         </div>
       </div>
       <Conseiller />
-
       <TabNavReo />
     </div>
   );
