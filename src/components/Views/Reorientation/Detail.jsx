@@ -13,6 +13,8 @@ import InokufuCard from "./componentsReo/inokufu-card/InokufuCard";
 import Loader from "./componentsReo/loader/Loader";
 
 import "../../../styles/buttons/buttons.styl";
+// import { getSoftSkills } from "../../../utils/jobreadyApi";
+import { useSoftSkills } from "../../Hooks/useSoftSkills";
 
 const Detail = () => {
   const { id } = useParams();
@@ -21,27 +23,15 @@ const Detail = () => {
   const [inokufuData, setInokufuData] = useState([]);
   const [inokufuDataLoaded, setInokufuDataLoaded] = useState(false);
   const [inokufuApiError, setInokufuApiError] = useState(false);
-  // Jobready API / Data handling
-  const [jobready, setJobready] = useState([]);
-  const [jobreadyDataLoaded, setJobreadyDataLoaded] = useState(false);
-  const [jobreadyApiError, setJobreadyApiError] = useState(false);
 
   const selectedJobcard = ot.jobCards.find(element => element.id == id);
+  const dataForCustomJRHook = { content: selectedJobcard.description };
+
+  const [jobready, jobreadyDataLoaded, jobreadyApiError] = useSoftSkills(
+    dataForCustomJRHook
+  );
 
   useEffect(() => {
-    const jobreadyOptions = {
-      method: "POST",
-      url:
-        "https://eb-staging-environment-prediction-api.jobready.fr/predict-softskills/?sXBe8B7Rhqym=S8NrfuZM79bR",
-      header: {
-        "Content-Type": "application/json"
-      },
-      data: {
-        type: "Alternance",
-        mission: selectedJobcard.description
-      }
-    };
-
     const inokufuOptions = {
       method: "GET",
       url: `https://api.inokufu.com/learningobject/v2/search-provider?lang=fr&model=strict&sort=popularity&distanceMax=100&max=20&address=cergy pontoise&match=best-effort&page=0&provider=CY Cergy Pontoise&keywords=${selectedJobcard.name}`,
@@ -60,17 +50,6 @@ const Detail = () => {
       .catch(function(error) {
         setInokufuApiError(true);
         log("error", `Failed to get data from Inokufu: ${error}`);
-      });
-
-    axios
-      .request(jobreadyOptions)
-      .then(function(response) {
-        setJobready(response.soft_skills);
-        setJobreadyDataLoaded(true);
-      })
-      .catch(function(error) {
-        setJobreadyApiError(true);
-        log("error", `Failed to get data from Jobready : ${error}`);
       });
   }, [selectedJobcard]);
 
@@ -212,9 +191,7 @@ const Detail = () => {
                     </div>
                   );
                 })}
-              {!jobreadyApiError && !jobreadyDataLoaded && (
-                <div className="soft">Chargement ...</div>
-              )}
+              {!jobreadyApiError && !jobreadyDataLoaded && <Loader />}
               {jobreadyApiError && (
                 <div className="soft">
                   Une erreur est survenue lors de la récupération des

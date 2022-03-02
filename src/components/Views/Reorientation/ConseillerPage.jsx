@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 // import chev from "../../../assets/chev.png";
 // import vectorTrois from "../../../assets/vector-trois.png";
 // import vectorUn from "../../../assets/vector-un.png";
-import vectorDeux from "../../../assets/vector-deux.png";
+// import vectorDeux from "../../../assets/vector-deux.png";
 import TabNavReo from "./componentsReo/TabNav";
 // import FileInput from "cozy-ui/transpiled/react/FileInput";
 // import upload from "../../../assets/upload-icon.png";
@@ -14,18 +14,16 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 // import question from "../../../assets/question.png";
 // import Conseiller from "./componentsReo/Conseiller";
 import { useJsonFiles } from "../../Hooks/useJsonFiles";
-import { useClient, Q } from "cozy-client";
 import dynamique from "../../../assets/dynamique.svg";
 import rapide from "../../../assets/rapide.svg";
 import sensible from "../../../assets/sensible.svg";
 import respectueux from "../../../assets/respectueux.svg";
 import axios from "axios";
+import { useMotivationLetters } from "../../Hooks/useMotivationLetters";
 
 const ConseillerPage = () => {
-  const client = useClient();
-
   const { jsonFiles } = useJsonFiles();
-  const [letters, setLetters] = useState([]);
+  const [letters] = useMotivationLetters();
   const [ino, setIno] = useState({});
 
   const datas = jsonFiles.orientoi.data.jobCards;
@@ -53,44 +51,7 @@ const ConseillerPage = () => {
         /* eslint-enable no-console */
       });
   };
-  useEffect(() => {
-    /* eslint-disable no-console */
-    console.log(ino);
-    /* eslint-enable no-console */
-  }, [ino]);
 
-  useEffect(() => {
-    // for (let i = 0; i < datas.length; i++) {
-    //   axios.get(
-    //     `https://api.inokufu.com/learningobject/v2/search-provider?lang=fr&model=strict&sort=popularity&distanceMax=100&max=20&address=cergy pontoise&match=best-effort&page=0&provider=CY Cergy Pontoise&keywords=${datas.name}`,
-    //     {
-    //       headers: {
-    //         "x-api-key": "78HXmwkbulX2oLxRpEh1tzicH4dq524qnO4xgwd0"
-    //       }
-    //     }
-    //       .then(function(response) {
-    //         console.log(response.data);
-    //         setIno(response.data.response.content);
-    //       })
-    //       .catch(function(error) {
-    //         console.error(error);
-    //       })
-    //   );
-    // }
-    client
-      .query(Q("visions.bilanorientation"))
-      .then(res => {
-        setLetters(res.data);
-        /* eslint-disable no-console */
-        console.log(res);
-        /* eslint-enable no-console */
-      })
-      .catch(err => {
-        /* eslint-disable no-console */
-        console.log(err);
-        /* eslint-enable no-console */
-      });
-  }, [client]);
   return (
     <div className="Detaillm">
       <div className="flex">
@@ -102,7 +63,7 @@ const ConseillerPage = () => {
           <AccordionDetails className="accor-detail flex center">
             <div className="contener-info">
               <h3>Les métiers sur lesquels tu es positionné :</h3>
-              <div className="content-lettre">
+              <div className="content-letter">
                 {datas.map(({ name }, index) => (
                   <Accordion key={index} className="content-accor">
                     <AccordionSummary
@@ -123,22 +84,23 @@ const ConseillerPage = () => {
                 ))}
               </div>
               <h3>Les secteurs sur lesquels tu es positionné :</h3>
-              <div className="content-lettre">
+              <div className="content-letter">
                 {datas.map(({ secteur }, index) => (
-                  <div key={index} className="lettre">
-                    <img className="vectordeux" src={vectorDeux} alt="" />
-                    <p>{secteur}</p>
+                  <div key={index} className="letter">
+                    <p>
+                      {secteur ||
+                        "Secteur non spécifié par Orientoi pour le moment"}
+                    </p>
                   </div>
                 ))}
               </div>
 
               <h3>Tes lettres de motivations :</h3>
-              <div className="content-lettre">
-                {letters.map(({ title }, index) => {
+              <div className="content-letter">
+                {letters.map((letter, index) => {
                   return (
-                    <div key={index} className="lettre">
-                      <img className="vectordeux" src={vectorDeux} alt="" />
-                      <p>{title}</p>
+                    <div key={index} className="letter">
+                      <p>{letter.title}</p>
                     </div>
                   );
                 })}
@@ -163,7 +125,7 @@ const ConseillerPage = () => {
               </div>
 
               <h3>Tes badges de personnalité :</h3>
-              <div className="content-lettre">
+              <div className="content-letter">
                 {/* {badges.map(({ name, value, icon }, index) => {
                   return (
                     <div key={index} className="lettre">

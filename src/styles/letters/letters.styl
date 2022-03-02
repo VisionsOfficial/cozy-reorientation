@@ -1,3 +1,8 @@
+letterRadius = 10px
+
+random()
+    return math(math(0, 'random') * 50 + 1, 'floor')
+
 .letter-container
     display flex
     flex-wrap wrap
@@ -18,9 +23,19 @@
             display flex
             align-items center
             position relative
-            border-radius 10px
+            border-radius letterRadius
             max-height 50px
             height auto
+
+            &-deco
+                position: absolute
+                background #1b89b1
+                width 10%
+                height 100%
+                border-top-left-radius letterRadius
+                border-bottom-left-radius letterRadius
+                border-top-right-radius random()px
+                border-bottom-right-radius random()px
 
             img 
                 width 100%

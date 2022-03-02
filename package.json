@@ -51,6 +51,7 @@
     "cozy-client": "^27.14.4",
     "cozy-scripts": "5.13.0",
     "cozy-ui": "^60.10.0",
+    "pdfjs-dist": "^2.13.216",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-router-dom": "5.2.0"

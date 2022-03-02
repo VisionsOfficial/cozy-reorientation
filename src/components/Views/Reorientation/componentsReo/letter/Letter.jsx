@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
-import vector1 from "../../../../../assets/vector-un.png";
-import vector2 from "../../../../../assets/vector-deux.png";
-import vector3 from "../../../../../assets/vector-trois.png";
 import Loader from "../loader/Loader";
 
-const styleVectors = [vector1, vector2, vector3];
-
-const getRandomIndex = () => {
-  return Math.floor(Math.random() * styleVectors.length);
-};
-
-const Letter = ({ index, letter, deleteLetter }) => {
-  const rndIndex = getRandomIndex();
-
+const Letter = ({ letter, deleteLetter }) => {
   const [loadingDelete, setLoadingDelete] = useState(false);
 
   const doDeleteLetter = letter => {
@@ -23,11 +12,8 @@ const Letter = ({ index, letter, deleteLetter }) => {
 
   return (
     <div className="letter">
-      <RouterLink to={"/detailLm/" + index} className="letter-content">
-        <img
-          className={"vector" + (rndIndex + 1)}
-          src={styleVectors[rndIndex]}
-        />
+      <RouterLink to={"/detailLm/" + letter.id} className="letter-content">
+        <span className="letter-content-deco"></span>
         <p>LM - {letter.title}</p>
       </RouterLink>
       {!loadingDelete && (

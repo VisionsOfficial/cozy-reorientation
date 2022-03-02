@@ -103,7 +103,7 @@ const App = () => {
                   <Route path="/formation" component={Formation} />
                   <Route path="/detail/:id" component={Detail} />
                   <Route path="/SoftSkills" component={SoftSkills} />
-                  <Route path="/detailLm" component={DetailLm} />
+                  <Route path="/detailLm/:id" component={DetailLm} />
                   <Route path="/matchSoft" component={Match} />
                   <Route
                     path="/partage-a-ton-conseiller"
