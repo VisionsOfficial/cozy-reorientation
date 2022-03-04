@@ -73,9 +73,9 @@ const App = () => {
           ) : (
             <Content
               style={styles.content}
-              className={cx({
-                "u-mh-2": !isMobile
-              })}
+              // className={cx({
+              //   "u-mh-2": !isMobile
+              // })}
             >
               {!allDataStatus.isLoaded && !allDataStatus.isLoading ? (
                 <div className="u-mt-3 u-pt-2">

@@ -2,15 +2,26 @@
 
 #coz-bar
     display none
-.svg
-    width 100%
-
+.svgContainer
+    display: flex
+    background-image: url("../assets/bg-info.svg")
+    background-size: 100% auto
+    background-repeat: no-repeat
+    height: 200px
+    width: 100%
+    .svg
+        width 100%
+.introContainer
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 .text
     display flex
     justify-content center
     align-items center
     height 30vh
-    padding 50px 0px
+    // padding 50px 0px
     p 
         padding 40px
         text-align center
@@ -33,22 +44,21 @@
     background #C1ECFB
     border-radius 50px
     padding 15px 40px
-    position relative
+    // position relative
     left 50%
-    transform translate(-50%, -50%)
+    // transform translate(-50%, -50%)
     border none
     color #21BBEF
     font-size 20px
 .v-btn-next-home
     background #c1ecfb
-    position relative
     border-radius 50px
     padding 15px 40px
-    position relative
+    // position relative
     left 28%
     top -30px
     text-decoration none
-    transform translate(-50%, -50%)
+    // transform translate(-50%, -50%)
     border none
     color #21bbef
     font-size 20px
@@ -62,9 +72,9 @@
     display flex
     flex-wrap wrap
     justify-content space-between
-    position relative
-    left 50%
-    transform translate(-50%, 0%)
+    // position relative
+    // left 50%
+    // transform translate(-50%, 0%)
     padding-top 0px
     .dot
         width 7px
@@ -90,25 +100,30 @@
     position fixed
     bottom 20px
     filter drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    @media screen and (min-width: 1025px)
+        bottom 0px
     img 
         width 24px
 a.v-pass
-    margin-top 20px
+    margin-top 35px
     text-decoration none
+    text-align: center
     padding 20px
-    position absolute
-    left 50% 
-    transform translate(-50%, 0%)
+    // position absolute
+    // left 50%
+    border: solid 1px #c1ecfb 
+    // transform translate(-50%, 0%)
     color black
-    width 43%
-a.v-pass::before
-    content ""
-    display block
-    width 80%
-    height 1px
-    background black
-    position absolute
-    bottom 15px
+    border-radius: 50px
+.headerBackground
+    height: 40px!important
+    padding: 0
+    @media (min-width: 769px)
+        display: none
+
+.styles__o-layout-2panes___1CDQw main, .styles__o-layout-2panes___1CDQw main>[role=contentinfo], .styles__o-layout-2panes___1CDQw main>[role=main], .styles__o-layout___3TSz9 main, .styles__o-layout___3TSz9 main>[role=contentinfo], .styles__o-layout___3TSz9 main>[role=main]
+    overflow-x: inherit
+    overflow-y: inherit
 
 .content-activity
     display flex
@@ -158,6 +173,7 @@ a.v-pass::before
             height 35px
             bottom -15px
             left 30px
+            z-index 10
             img
                 width 23px
                 height 23px
@@ -177,7 +193,10 @@ a.v-pass::before
     position relative
     display flex
     flex-wrap wrap
-    justify-content center 
+    justify-content center
+    margin-top: 15px
+    @media (min-width: 1030px)
+        margin-top: 50px 
     h1
         width 100% 
         text-align center 
@@ -205,6 +224,11 @@ a.v-pass::before
     h2
         width 80% !important
     .content-formation-detail
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
         h2
             background-color rgb(54, 107, 22) !important
             color white
@@ -274,18 +298,21 @@ a.v-pass::before
         width 100%
         .content-soft
             display flex
+            flex-direction: row
             flex-wrap wrap
             justify-content center
-            width 90%
+            width 100%
             .soft
                 display flex 
                 flex-wrap wrap
                 width 87%
                 margin 5px
-                padding-lef 20px
+                padding-left 20px
+                @media (min-width 1200px)
+                    width: auto
                 p
                     width auto
-                    padding 0 20px
+                    padding 5px 20px
                     height 30px
                     border solid 1px #FFE56E
                     text-align center
@@ -340,8 +367,17 @@ a.v-pass::before
         .contener-info
             padding-left 20px
             width 90%
+            text-align: justify
+            @media screen and (min-width: 770px)
+                margin-left: 3%
+            @media screen and (min-width: 900px)
+                margin-left: 5%
+            @media screen and (min-width: 1360px)
+                margin-left: 6%
+            @media screen and (min-width: 1920px)
+                margin-left: 7%
 .v-btn-next 
-    transform translate(-50%, 0) scale(0.7)
+    // transform translate(-50%, 0) scale(0.7)
     left 40% !important
     margin-top 280px !important
     margin-bottom 50px
@@ -358,6 +394,8 @@ a.v-pass::before
     display flex
     flex-wrap wrap
     justify-content center
+    @media (min-width: 1030px)
+        margin-top: 40px 
    
     h2
         width 90%
@@ -434,20 +472,29 @@ a.v-pass::before
             text-decoration none
             position relative
             box-shadow 0px 4px 4px rgba(0, 0, 0, 0.25)
-            input[type="radio" i] 
-                background red !important
-                appareance none !important
+            input[type="radio" i]
+                appearance:  none !important
                 border solid 3px white !important
                 color none !important
                 width 20px
                 height 20px
                 border-radius 20px
                 position absolute
-                left 2px
-                top 10px
+                left 5px
+                top 13px
                 z-index 100000 !important
-
-
+            input[type="radio" i]:checked
+                background white !important
+                appearance:  none !important
+                border solid 3px white !important
+                color none !important
+                width 20px
+                height 20px
+                border-radius 20px
+                position absolute
+                left 5px
+                top 13px
+                z-index 100000 !important
             p 
                 margin 0
                 padding 0 
@@ -495,32 +542,46 @@ a.v-pass::before
     img
         width 9%
         padding-right 10px
-    
+        @media (min-width: 380px)
+            width: 35px
+            padding-right: 20px
+.btnRemoveFile
+    background-color: #c1ecfb
+    border: none
+    color: #21bbef
+    border-radius: 50px
+    padding: 15px 40px
+    font-size: 18px
+    margin: 10px
+    cursor pointer
 .none
     display none
-
-.flex
-    display flex
-    flex-wrap wrap
-    justify-content center
 
 .Detaillm
     display flex
     flex-wrap wrap
     justify-content center
+    margin: 50px 20px
+.flex
+    display flex
+    flex-wrap wrap
+    justify-content center
+    flex-direction: column
+    align-items: center
+    width: 100%
+    margin-top: 20px
     h2
-            width 90%
-            color black
-            padding 10px
-            background rgba(33, 187, 239, 40%)
-            text-aling center
-            margin 20px
-            display flex
-            flex-wrap wrap
-            justify-content center
-            font-weight 700
-            border-radius 10px
-            font-size 16px
+        width 90%
+        color black
+        padding 10px
+        background rgba(33, 187, 239, 40%)
+        text-aling center
+        display flex
+        flex-wrap wrap
+        justify-content center
+        font-weight 700
+        border-radius 10px
+        font-size 16px
     h3
         font-size 14px
         text-aling left
@@ -531,14 +592,14 @@ a.v-pass::before
         font-size 20px
         font-weight 500
 
-    .content-letter
+    .content-lettre
         display flex
         flex-wrap wrap
         justify-content center
         padding-top 5px
         width 100%
 
-        .letter
+        .lettre
             width 90%
             background #C1ECFB
             margin 10px
@@ -546,7 +607,7 @@ a.v-pass::before
             height 50px   
             display flex
             flex-wrap wrap
-            aling-items center
+            align-items: center
             justify-content center
             overflow hidden
             color black
@@ -593,8 +654,9 @@ a.v-pass::before
             display flex 
             flex-wrap wrap
             width 100%
+            justify-content: center
             p
-                width 60%
+                width 150px
                 background rgba(255, 229, 110, 0.3)
                 height 50px
                 border solid 1px #FFE56E
@@ -604,7 +666,7 @@ a.v-pass::before
                 align-items center
                 margin-top 0px
                 margin-bottom 0px
-                margin 5px 0px
+                margin 5px
                 border-radius 20px
             .content-accor
                 overflow inherit
@@ -647,11 +709,13 @@ a.v-pass::before
                     padding-top 10px
                     height auto !important
                     text-align left
-
+.btnBack
+    text-align: center
+    margin: 15px 0px
 .btn-slide
     margin-top 0px !important
     left 50% !important
-    font-size 25px
+    // font-size 25px
 
 .v-btn-next-home
     font-size 17px

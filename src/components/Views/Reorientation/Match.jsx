@@ -123,14 +123,16 @@ const SoftSkills = () => {
             {!lettersLoaded && <Loader />}
             {letters.map(({ title }, index) => {
               return (
-                <div key={index} className="letter">
-                  <input
-                    type="radio"
-                    value={title}
-                    name={"letterSelect"}
-                    onClick={() => setSelectedLetterIndex(index)}
-                  />
-                  <p>LM - {title}</p>
+                <div key={index} className="inputContainer">
+                  <div className="letter">
+                    <input
+                      type="radio"
+                      value={title}
+                      name={"letterSelect"}
+                      onClick={() => setSelectedLetterIndex(index)}
+                    />
+                    <p>LM - {title}</p>
+                  </div>
                 </div>
               );
             })}
