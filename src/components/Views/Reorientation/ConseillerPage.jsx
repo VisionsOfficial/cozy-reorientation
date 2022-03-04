@@ -19,11 +19,11 @@ import rapide from "../../../assets/rapide.svg";
 import sensible from "../../../assets/sensible.svg";
 import respectueux from "../../../assets/respectueux.svg";
 import axios from "axios";
-import { useMotivationLetters } from "../../Hooks/useMotivationLetters";
+import { useDataOfType } from "../../Hooks/useDataOfType";
 
 const ConseillerPage = () => {
   const { jsonFiles } = useJsonFiles();
-  const [letters] = useMotivationLetters();
+  const [letters] = useDataOfType("motivation-letters");
   const [ino, setIno] = useState({});
 
   const datas = jsonFiles.orientoi.data.jobCards;

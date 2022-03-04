@@ -12,7 +12,10 @@ const Letter = ({ letter, deleteLetter }) => {
 
   return (
     <div className="letter">
-      <RouterLink to={"/detailLm/" + letter.id} className="letter-content">
+      <RouterLink
+        to={{ pathname: "/detailLm/" + letter.id, state: letter }}
+        className="letter-content"
+      >
         <span className="letter-content-deco"></span>
         <p>LM - {letter.title}</p>
       </RouterLink>

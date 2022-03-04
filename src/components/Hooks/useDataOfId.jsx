@@ -4,11 +4,11 @@ import log from "cozy-logger";
 
 const VISIONS_DOCTYPE = "visions.reorientation";
 
-export const useMotivationLetter = id => {
+export const useDataOfId = id => {
   const client = useClient();
-  const [letter, setLetter] = useState(null);
-  const [letterLoaded, setLetterLoaded] = useState(false);
-  const [letterError, setLetterError] = useState(false);
+  const [data, setData] = useState(null);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
     const queryDef = Q(VISIONS_DOCTYPE).where({
@@ -24,17 +24,17 @@ export const useMotivationLetter = id => {
         if (!data.length) current = data;
         else current = data.find(l => l.id == id);
 
-        setLetter(current);
-        setLetterError(false);
+        setData(current);
+        setDataError(false);
       })
       .catch(err => {
-        log("error", `Could not fetch motivation letter: ${err.message}`);
-        setLetterError(true);
+        log("error", `Could not fetch motivation data: ${err.message}`);
+        setDataError(true);
       })
       .finally(() => {
-        setLetterLoaded(true);
+        setDataLoaded(true);
       });
   }, [client, id]);
 
-  return [letter, letterLoaded, letterError];
+  return [data, dataLoaded, dataError, setData];
 };

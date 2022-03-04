@@ -13,7 +13,8 @@ import "../../../styles/buttons/buttons.styl";
 import "../../../styles/letters/letters.styl";
 import { getPdfText } from "../../../utils/pdfjsStuff";
 import Loader from "./componentsReo/loader/Loader";
-import { useMotivationLetters } from "../../Hooks/useMotivationLetters";
+import { useDataOfType } from "../../Hooks/useDataOfType";
+import PageLoader from "./componentsReo/page-loader/PageLoader";
 
 const SoftSkills = () => {
   const client = useClient();
@@ -28,7 +29,7 @@ const SoftSkills = () => {
     lettersError,
     setLetters,
     setLettersLoaded
-  ] = useMotivationLetters();
+  ] = useDataOfType("motivation-letter");
 
   const [uploadedFile, setUploadedFile] = useState(null);
   const [fileUploadText, setFileUploadText] = useState(
@@ -38,6 +39,11 @@ const SoftSkills = () => {
   const saveLetter = async () => {
     if (!letterTitle.current.value)
       return alert("Veuillez donner un nom à votre lettre de motivation");
+
+    if (uploadedFile && letterContent.current.value != "")
+      return alert(
+        "Veuillez sélectionner une des deux options. Si vous avez importé une lettre de motivation, laissez le champ d'écriture manuscrite vide. Si vous préférez écrire votre lettre à la main, veuillez retirer le fichier importé."
+      );
 
     setLettersLoaded(false);
 
@@ -50,7 +56,9 @@ const SoftSkills = () => {
         _type: "visions.reorientation",
         currentType: "motivation-letter",
         title: letterTitle.current.value,
-        content: textContent
+        content: textContent,
+        softSkills: [],
+        softSkillsSaved: false
       })
       .then(res => {
         setLetters([...letters, res.data]);
@@ -110,8 +118,14 @@ const SoftSkills = () => {
     }
   }, [letters]);
 
+  // useEffect(() => {
+  //   if (letters.length) {
+  //     sessionStorage.setItem("motivation-letters", JSON.stringify(letters));
+  //   }
+  // }, [letters]);
+
   if (!lettersLoaded) {
-    return <Loader />;
+    return <PageLoader title={"Chargement en cours..."} />;
   } else {
     return (
       <div className="Soft">
@@ -150,9 +164,11 @@ const SoftSkills = () => {
           <button onClick={() => saveLetter()} className="v-btn-nav">
             Confirmer
           </button>
-          <button onClick={() => toggle(3)} className="v-btn-nav">
-            Voir mes lettres
-          </button>
+          {letters.length != 0 && (
+            <button onClick={() => toggle(3)} className="v-btn-nav">
+              Voir mes lettres
+            </button>
+          )}
         </div>
 
         {/* Letter list */}
@@ -162,7 +178,7 @@ const SoftSkills = () => {
           <p>Match les ensuite avec les soft skills des fiches métiers !</p>
 
           <button onClick={() => toggle(2)} className="v-btn-nav">
-            Ecrire ou importer une lettre
+            Ecrire ou importer une autre lettre
           </button>
 
           <div className="letter-container">
