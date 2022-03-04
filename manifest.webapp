@@ -38,6 +38,13 @@
       "description": "Information on the Visions Bilan de Réorientation",
       "type": "visions.reorientation",
       "verbs": ["ALL"]
+    },
+    "mail": {
+      "description": "Send emails to conseiller de réorientation",
+      "type": "io.cozy.jobs",
+      "verbs": ["POST"],
+      "selector": "worker",
+      "values": ["sendmail"]
     }
   }
 }
