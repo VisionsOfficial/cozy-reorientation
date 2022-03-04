@@ -137,7 +137,7 @@ const SoftSkills = () => {
             <span role="button">{fileUploadText}</span>
           </FileInput>
           {uploadedFile && (
-            <button onClick={() => removeFile()}>Retirer le fichier</button>
+            <button className="btnRemoveFile" onClick={() => removeFile()}>Retirer le fichier</button>
           )}
           <h3>Ecris ta lettre de motivation :</h3>
           <Textarea className="textArea" ref={letterContent}></Textarea>

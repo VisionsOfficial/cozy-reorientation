@@ -76,11 +76,11 @@ const DetailLm = () => {
               )}
             </div>
           </div>
-        </div>
-        <div className="v-btn-container">
+        <div className="v-btn-container btnBack">
           <RouterLink to="/SoftSkills" className="v-btn-nav">
             Retour
           </RouterLink>
+        </div>
         </div>
         <Conseiller />
         <TabNavReo />
