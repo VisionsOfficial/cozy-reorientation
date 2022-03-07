@@ -7,10 +7,15 @@
     background-image: url("../assets/bg-info.svg")
     background-size: 100% auto
     background-repeat: no-repeat
-    height: 200px
+    height: 350px
     width: 100%
-    .svg
-        width 100%
+    @media (max-width: 600px)
+        height: 250px
+    @media (max-width: 640px)
+        height: 270px
+    @media (min-width: 840px)
+        background-image: url("../assets/bg-info-lg.svg")
+        height: 250px
 .introContainer
     display: flex;
     flex-direction: column;
@@ -251,7 +256,9 @@ a.v-pass
                 width 100%
                 height 100%
                 object-fit contain        
-    
+.detailFormation
+    width: 85%
+    margin-bottom 30px
 .content-accor
     width 100%
     display flex
@@ -268,7 +275,7 @@ a.v-pass
         color #6D3EA8
         cursor pointer
         font-weight 700
-        width 85%
+        width 100%
         border none
         text-align left
         outline none
@@ -466,12 +473,16 @@ a.v-pass
             height 50px   
             display flex
             flex-wrap wrap
-            aling-items center
+            align-items center
             overflow hidden
             color black
             text-decoration none
             position relative
             box-shadow 0px 4px 4px rgba(0, 0, 0, 0.25)
+            .inputContainer
+                background rgba(33, 187, 239, 1)
+                width: 45px
+                height: 100%
             input[type="radio" i]
                 appearance:  none !important
                 border solid 3px white !important
@@ -711,6 +722,7 @@ a.v-pass
                     text-align left
 .btnBack
     text-align: center
+    cursor pointer
     margin: 15px 0px
 .btn-slide
     margin-top 0px !important
@@ -740,3 +752,42 @@ a.v-pass
         p 
             font-size 20px
             color purple
+.summary 
+    width: 90%!important
+.summaryJob
+    width: 95%!important
+    background: #c1ecfb!important
+    margin: 5px!important
+    border-radius: 10px!important
+    height: 50px!important
+    display: flex!important
+    flex-wrap: wrap!important
+    color: #000!important
+    text-decoration: none!important
+    position: relative!important
+    filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25))
+    padding-left 50px!important
+    .boxStyle
+        background rgba(33, 187, 239, 1)
+        border-radius: 10px
+        width: 45px
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+
+.endContainer
+    display: flex
+    justify-content: center
+    align-items center
+    flex-direction column
+    margin-top 55px
+    p
+        font-size: 25px
+        margin: 60px
+    button
+        width 100%
+        
+@media (max-width: 63.938rem)
+    .styles__o-layout-2panes___1CDQw:after, .styles__o-layout-2panes___1CDQw:before, .styles__o-layout___3TSz9:after, .styles__o-layout___3TSz9:before
+        height: 0rem;

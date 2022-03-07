@@ -14,6 +14,8 @@ import { sendMail } from "../../../utils/sendMail";
 import { useClient } from "cozy-client";
 import log from "cozy-logger";
 import Loader from "./componentsReo/loader/Loader";
+import { NavLink as RouterLink } from "react-router-dom";
+import LettreConseillerPage from "./LetterConseillerPage";
 
 const ConseillerPage = () => {
   const client = useClient();
@@ -97,12 +99,28 @@ const ConseillerPage = () => {
     }
   }, [skills]);
 
+  const [styleBox, setStyleBox] = useState(null);
+
+    useEffect(() => {
+        const randomBorderRadius = (min, max) => {
+            return (
+                (
+                    Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) +1)) + Math.ceil(min) 
+                  ).toString() + "px"
+                );
+              };
+        setStyleBox ({
+            borderTopRightRadius: randomBorderRadius(20, 100),
+            borderBottomRightRadius: randomBorderRadius(20, 100)
+        })
+    }, [])
+
   return (
     <div className="Detaillm">
       <div className="flex">
         <h2>Partage à ton conseiller</h2>
         <Accordion className="content-accor">
-          <AccordionSummary className="accor-title blue">
+          <AccordionSummary className="accor-title blue summary">
             Récapitulatif
           </AccordionSummary>
           <AccordionDetails className="accor-detail flex center">
@@ -112,9 +130,11 @@ const ConseillerPage = () => {
                 {datas.map(({ name }, index) => (
                   <Accordion key={index} className="content-accor">
                     <AccordionSummary
-                      className="accor-title"
+                      className="summaryJob"
                       onClick={() => getFormations(name, index)}
-                    >
+                      >
+                      {/* <LettreConseillerPage /> */}
+                      <div className="boxStyle" style={styleBox}></div>
                       {name}
                     </AccordionSummary>
                     <AccordionDetails className="accor-detail">
@@ -199,9 +219,11 @@ const ConseillerPage = () => {
             </div>
           </AccordionDetails>
         </Accordion>
-        <button className="v-btn-next" onClick={() => shareToConseiller()}>
-          Je partage à un conseiller
-        </button>
+        <RouterLink to="/end">
+          <button className="v-btn-next" onClick={() => shareToConseiller()}>
+            Je partage à un conseiller
+          </button>
+        </RouterLink>
         {/* <RouterLink to="/" className="v-btn-next">
           Je partage à un conseiller
         </RouterLink> */}

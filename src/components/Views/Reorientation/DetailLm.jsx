@@ -154,16 +154,9 @@ const DetailLm = () => {
               </h3>
             )}
           </div>
-          <div className="v-btn-container btnBack">
-            <RouterLink to="/SoftSkills" className="v-btn-nav">
-              Retour
-            </RouterLink>
-          </div>
         </div>
-        <Conseiller />
-        <TabNavReo />
       </div>
-      <div className="v-btn-container">
+      <div className="v-btn-container btnBack">
         <RouterLink to="/SoftSkills" className="v-btn-nav">
           Retour
         </RouterLink>

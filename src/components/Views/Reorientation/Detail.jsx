@@ -57,150 +57,152 @@ const Detail = () => {
     return (
       <div className="formation">
         <h2>{selectedJobcard.name}</h2>
-        <TabNavReo />
-        <Accordion className="content-accor">
-          <AccordionSummary className="accor-title">
-            Fiche métier
-          </AccordionSummary>
-          <AccordionDetails className="accor-detail">
-            <div className="contener-info">
-              <p>Type d’information : Métier</p>
-            </div>
-            <div className="contener-info">
-              <h3>Définition</h3>
-              <p>
-                Recherche et définit les concepts créatifs de projets multimédia
-                (communication, jeux vidéo, ...), supervise la réalisation des
-                projets retenus (maquette, rough, story-board) en cohérence avec
-                la stratégie commerciale. <br />
-                Peut coordonner une équipe.
-              </p>
-            </div>
-            <div className="contener-info">
-              <h3>Accès au métier</h3>
-              <p>
-                Cet emploi/métier est accessible avec un diplôme de niveau Bac+2
-                (BTS, DUT, ...) à Master (Master professionnel, ...) dans les
-                secteurs de la communication, du multimédia, du marketing, du
-                commerce et de la publicité. <br />
-                <br />
-                Une formation artistique (École des beaux-arts, des arts
-                décoratifs...) peut être demandée.
-                <br />
-                <br />
-                {"La pratique d'une langue étrangère est requise."}
-                <br />
-                <br />
-                La maîtrise des outils de création informatique (publication
-                assistée par ordinateur -PAO-, palette graphique, image de
-                synthèse) est requise.
-              </p>
-            </div>
-            <div className="contener-info">
-              <h3>Condition du métier</h3>
-              <p>
-                L&apos;activité de cet emploi/métier s&apos;exerce au sein
-                d&apos;agences de publicité, de communication, de promotion des
-                ventes, ou en indépendant, en relation avec différents services
-                (direction, service informatique, communication, ...) et
-                intervenants (clients, responsables de la production,
-                imprimeurs, photographes, réalisateurs de films, ...).
-                <br />
-                <br />
-                Elle varie selon le type de support (print, web, ...) et de
-                média.
-              </p>
-            </div>
-            <div className="contener-info">
-              <h3>Environnement de travail</h3>
-              <p>
-                <b>Structure :</b>
-              </p>
-              <ul>
-                <li>Agence de communication</li>
-                <li>Agence de promotion et de marketing direct</li>
-                <li>Agence de publicité</li>
-                <li>Entreprise</li>
-                <li>Organe de presse</li>
-                <li>Studio de création graphique</li>
-                <li>Studio de développement de jeux vidéo</li>
-                <li>Studio de films d’animation</li>
-              </ul>
-              <p>
-                <b>Secteurs :</b>
-              </p>
-              <ul>
-                <li>Administration/Services de l’état</li>
-                <li>Editeur multimédia</li>
-              </ul>
-              <p>
-                <b>Conditions :</b>
-              </p>
-              <ul>
-                <li>Travail en indépedant</li>
-              </ul>
-            </div>
-            <div className="contener-info">
-              <h3>Compétences de base attendues :</h3>
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion className="content-accor ">
-          <AccordionSummary className="accor-title red">
-            Formations associés
-          </AccordionSummary>
-          <AccordionDetails className="accor-detail">
-            {!inokufuApiError &&
-              inokufuDataLoaded &&
-              inokufuData.length != 0 &&
-              inokufuData.map(
-                (
-                  { title, name, url, picture, description, address },
-                  index
-                ) => (
-                  <InokufuCard
-                    key={index}
-                    title={title}
-                    name={name}
-                    url={url}
-                    picture={picture}
-                    description={description}
-                    address={address}
-                  />
-                )
-              )}
-            {!inokufuApiError &&
-              inokufuDataLoaded &&
-              inokufuData.length == 0 && <h3>Aucune formation associée</h3>}
-            {!inokufuApiError && !inokufuDataLoaded && <Loader />}
-            {inokufuApiError && <h3>Erreur lors du chargement des données</h3>}
-          </AccordionDetails>
-        </Accordion>
-        <Accordion className="content-accor ">
-          <AccordionSummary className="accor-title yel">
-            Compétences associés
-          </AccordionSummary>
-          <AccordionDetails className="accor-detail">
-            <div className="content-soft">
-              {!jobreadyApiError &&
-                jobreadyDataLoaded &&
-                jobready.map((softSkill, index) => {
-                  return (
-                    <div key={index} className="soft">
-                      <p>{softSkill.name}</p>
-                    </div>
-                  );
-                })}
-              {!jobreadyApiError && !jobreadyDataLoaded && <Loader />}
-              {jobreadyApiError && (
-                <div className="soft">
-                  Une erreur est survenue lors de la récupération des
-                  compétences associées auprès de Jobready
-                </div>
-              )}
-            </div>
-          </AccordionDetails>
-        </Accordion>
+        <div className="detailFormation">
+          <TabNavReo />
+          <Accordion className="content-accor">
+            <AccordionSummary className="accor-title">
+              Fiche métier
+            </AccordionSummary>
+            <AccordionDetails className="accor-detail">
+              <div className="contener-info">
+                <p>Type d’information : Métier</p>
+              </div>
+              <div className="contener-info">
+                <h3>Définition</h3>
+                <p>
+                  Recherche et définit les concepts créatifs de projets multimédia
+                  (communication, jeux vidéo, ...), supervise la réalisation des
+                  projets retenus (maquette, rough, story-board) en cohérence avec
+                  la stratégie commerciale. <br />
+                  Peut coordonner une équipe.
+                </p>
+              </div>
+              <div className="contener-info">
+                <h3>Accès au métier</h3>
+                <p>
+                  Cet emploi/métier est accessible avec un diplôme de niveau Bac+2
+                  (BTS, DUT, ...) à Master (Master professionnel, ...) dans les
+                  secteurs de la communication, du multimédia, du marketing, du
+                  commerce et de la publicité. <br />
+                  <br />
+                  Une formation artistique (École des beaux-arts, des arts
+                  décoratifs...) peut être demandée.
+                  <br />
+                  <br />
+                  {"La pratique d'une langue étrangère est requise."}
+                  <br />
+                  <br />
+                  La maîtrise des outils de création informatique (publication
+                  assistée par ordinateur -PAO-, palette graphique, image de
+                  synthèse) est requise.
+                </p>
+              </div>
+              <div className="contener-info">
+                <h3>Condition du métier</h3>
+                <p>
+                  L&apos;activité de cet emploi/métier s&apos;exerce au sein
+                  d&apos;agences de publicité, de communication, de promotion des
+                  ventes, ou en indépendant, en relation avec différents services
+                  (direction, service informatique, communication, ...) et
+                  intervenants (clients, responsables de la production,
+                  imprimeurs, photographes, réalisateurs de films, ...).
+                  <br />
+                  <br />
+                  Elle varie selon le type de support (print, web, ...) et de
+                  média.
+                </p>
+              </div>
+              <div className="contener-info">
+                <h3>Environnement de travail</h3>
+                <p>
+                  <b>Structure :</b>
+                </p>
+                <ul>
+                  <li>Agence de communication</li>
+                  <li>Agence de promotion et de marketing direct</li>
+                  <li>Agence de publicité</li>
+                  <li>Entreprise</li>
+                  <li>Organe de presse</li>
+                  <li>Studio de création graphique</li>
+                  <li>Studio de développement de jeux vidéo</li>
+                  <li>Studio de films d’animation</li>
+                </ul>
+                <p>
+                  <b>Secteurs :</b>
+                </p>
+                <ul>
+                  <li>Administration/Services de l’état</li>
+                  <li>Editeur multimédia</li>
+                </ul>
+                <p>
+                  <b>Conditions :</b>
+                </p>
+                <ul>
+                  <li>Travail en indépedant</li>
+                </ul>
+              </div>
+              <div className="contener-info">
+                <h3>Compétences de base attendues :</h3>
+              </div>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className="content-accor ">
+            <AccordionSummary className="accor-title red">
+              Formations associés
+            </AccordionSummary>
+            <AccordionDetails className="accor-detail">
+              {!inokufuApiError &&
+                inokufuDataLoaded &&
+                inokufuData.length != 0 &&
+                inokufuData.map(
+                  (
+                    { title, name, url, picture, description, address },
+                    index
+                  ) => (
+                    <InokufuCard
+                      key={index}
+                      title={title}
+                      name={name}
+                      url={url}
+                      picture={picture}
+                      description={description}
+                      address={address}
+                    />
+                  )
+                )}
+              {!inokufuApiError &&
+                inokufuDataLoaded &&
+                inokufuData.length == 0 && <h3>Aucune formation associée</h3>}
+              {!inokufuApiError && !inokufuDataLoaded && <Loader />}
+              {inokufuApiError && <h3>Erreur lors du chargement des données</h3>}
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className="content-accor ">
+            <AccordionSummary className="accor-title yel">
+              Compétences associés
+            </AccordionSummary>
+            <AccordionDetails className="accor-detail">
+              <div className="content-soft">
+                {!jobreadyApiError &&
+                  jobreadyDataLoaded &&
+                  jobready.map((softSkill, index) => {
+                    return (
+                      <div key={index} className="soft">
+                        <p>{softSkill.name}</p>
+                      </div>
+                    );
+                  })}
+                {!jobreadyApiError && !jobreadyDataLoaded && <Loader />}
+                {jobreadyApiError && (
+                  <div className="soft">
+                    Une erreur est survenue lors de la récupération des
+                    compétences associées auprès de Jobready
+                  </div>
+                )}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </div>
         <div className="v-btn-container">
           <RouterLink to="/SoftSkills" className="v-btn-nav">
             Match avec tes soft skills

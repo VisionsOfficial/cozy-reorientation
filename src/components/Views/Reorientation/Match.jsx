@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 // import chev from "../../../assets/chev.png";
 // import vectorTrois from "../../../assets/vector-trois.png";
@@ -19,8 +19,13 @@ import { useDataOfType } from "../../Hooks/useDataOfType";
 import { getSoftSkills } from "../../../utils/jobreadyApi";
 import Loader from "./componentsReo/loader/Loader";
 import PageLoader from "./componentsReo/page-loader/PageLoader";
+import LettreMatch from "./LetterMatch";
 
 const SoftSkills = () => {
+
+  const letterInputs = useRef();
+  const jobInputs = useRef();
+
   const { jsonFiles } = useJsonFiles();
   const datas = jsonFiles.orientoi.data.jobCards;
 
@@ -86,6 +91,20 @@ const SoftSkills = () => {
     return true;
   };
 
+  const formValid = () => {
+    if (!letterInputs.current) return false;
+    if (!jobInputs.current) return false;
+
+    let isValid = false
+    let inputLetter = letterInputs.current.querySelector('input[name="letterSelect"]:checked');
+    let inputJob = jobInputs.current.querySelector('input[name="jobcardSelect"]:checked');
+    if (inputLetter && inputJob) {
+      isValid = true
+    }
+    console.log({inputLetter, inputJob, isValid})
+    return isValid
+  }
+
   if (
     (!letters || !letters.length || !checkIfAnalyzed(letters)) &&
     lettersLoaded
@@ -119,45 +138,37 @@ const SoftSkills = () => {
         <div className={toggleMatch === 1 ? "flex" : "none"}>
           <h2>Match les soft skills !</h2>
           <p>Sélectionne la lettre de motivation que tu souhaites matcher :</p>
-          <div className="content-letter match">
+          <div ref={letterInputs} className="content-letter match">
             {!lettersLoaded && <Loader />}
             {letters.map(({ title }, index) => {
               return (
-                <div key={index} className="inputContainer">
-                  <div className="letter">
-                    <input
-                      type="radio"
-                      value={title}
-                      name={"letterSelect"}
-                      onClick={() => setSelectedLetterIndex(index)}
-                    />
-                    <p>LM - {title}</p>
-                  </div>
-                </div>
+                <LettreMatch key={index} title={title} onclick={setSelectedLetterIndex} id={index} name={"letterSelect"}/>
               );
             })}
           </div>
           <p>Puis le métier :</p>
-          <div className="content-letter match">
+          <div ref={jobInputs} className="content-letter match">
             {datas.map(({ name, id }, index) => (
-              <div key={index} className="letter">
-                <input
-                  type="radio"
-                  value={name}
-                  name={"jobcardSelect"}
-                  onClick={() => setSelectedJobId(id)}
-                />
-                <p>{name}</p>
-              </div>
+               <LettreMatch key={index} title={name} onclick={setSelectedJobId} id={id} name={"jobcardSelect"}/>
             ))}
           </div>
-
-          <button
-            onClick={() => toggleSoftSkills()}
-            className="v-btn-next quatre"
-          >
-            Match les soft skills !
-          </button>
+          {formValid() && (
+            <button
+              onClick={() => toggleSoftSkills()}
+              className="v-btn-next quatre"
+            >
+              Match les soft skills !
+            </button>
+          )}
+          {!formValid() && (
+            <button
+              onClick={() => toggleSoftSkills()}
+              className="v-btn-next quatre"
+              disabled
+            >
+              Match les soft skills !
+            </button>
+          )}
         </div>
         <div className={toggleMatch === 2 ? "flex" : "none"}>
           <div className="Detaillm">
