@@ -11,6 +11,7 @@ export const useDataOfId = id => {
   const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
+    let unmounted = false;
     const queryDef = Q(VISIONS_DOCTYPE).where({
       currentType: "motivation-letter",
       _id: id
@@ -18,6 +19,7 @@ export const useDataOfId = id => {
     client
       .query(queryDef)
       .then(res => {
+        if (unmounted) return;
         const { data } = res;
         let current;
 
@@ -28,12 +30,18 @@ export const useDataOfId = id => {
         setDataError(false);
       })
       .catch(err => {
+        if (unmounted) return;
         log("error", `Could not fetch motivation data: ${err.message}`);
         setDataError(true);
       })
       .finally(() => {
+        if (unmounted) return;
         setDataLoaded(true);
       });
+
+    return () => {
+      unmounted = true;
+    };
   }, [client, id]);
 
   return [data, dataLoaded, dataError, setData];

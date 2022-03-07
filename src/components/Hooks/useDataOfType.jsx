@@ -9,21 +9,29 @@ export const useDataOfType = currentType => {
   const [dataError, setDataError] = useState(false);
 
   useEffect(() => {
+    let unmounted = false;
     const queryDef = Q("visions.reorientation").where({
       currentType: currentType
     });
     client
       .query(queryDef)
       .then(res => {
+        if (unmounted) return;
         setData(res.data);
       })
       .catch(err => {
+        if (unmounted) return;
         log("error", `Could not fetch motivation data: ${err.message}`);
         setDataError(true);
       })
       .finally(() => {
+        if (unmounted) return;
         setDataLoaded(true);
       });
+
+    return () => {
+      unmounted = true;
+    };
   }, [client, currentType]);
 
   return [data, dataLoaded, dataError, setData, setDataLoaded];

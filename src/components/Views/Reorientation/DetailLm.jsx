@@ -29,6 +29,7 @@ const DetailLm = () => {
   const [updatedLetter, setUpdatedLetter] = useState(false);
 
   useEffect(() => {
+    let unmounted = false;
     if (!letter.content) return;
     if (letterSkillsLoaded) return;
 
@@ -40,6 +41,8 @@ const DetailLm = () => {
     } else {
       getSoftSkills(letter.content)
         .then(res => {
+          if (unmounted) return;
+
           if (res.soft_skills) {
             setSoftSkillsError(false);
             setSoftSkills(res.soft_skills);
@@ -50,13 +53,19 @@ const DetailLm = () => {
           }
         })
         .catch(err => {
+          if (unmounted) return;
           log("error", "Could not get soft skills: " + err);
           setSoftSkillsError(true);
         })
         .finally(() => {
+          if (unmounted) return;
           setSoftSkillsLoaded(true);
         });
     }
+
+    return () => {
+      unmounted = true;
+    };
   }, [letter, letterSkillsLoaded]);
 
   useEffect(() => {

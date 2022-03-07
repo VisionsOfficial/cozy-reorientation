@@ -8,9 +8,11 @@ export const useSoftSkills = dependency => {
   const [softSkillsError, setSoftSkillsError] = useState(false);
 
   useEffect(() => {
+    let unmounted = false;
     if (dependency) {
       getSoftSkills(dependency.content)
         .then(res => {
+          if (unmounted) return;
           if (res.soft_skills) {
             setSoftSkillsError(false);
             setSoftSkills(res.soft_skills);
@@ -19,13 +21,19 @@ export const useSoftSkills = dependency => {
           }
         })
         .catch(err => {
+          if (unmounted) return;
           log("error", "Could not get soft skills " + err);
           setSoftSkillsError(true);
         })
         .finally(() => {
+          if (unmounted) return;
           setSoftSkillsLoaded(true);
         });
     }
+
+    return () => {
+      unmounted = true;
+    };
   }, [dependency]);
 
   return [softSkills, softSkillsLoaded, softSkillsError];

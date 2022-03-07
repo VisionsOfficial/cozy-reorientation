@@ -32,6 +32,7 @@ const Detail = () => {
   );
 
   useEffect(() => {
+    let unmounted = false;
     const inokufuOptions = {
       method: "GET",
       url: `https://api.inokufu.com/learningobject/v2/search-provider?lang=fr&model=strict&sort=popularity&distanceMax=100&max=20&address=cergy pontoise&match=best-effort&page=0&provider=CY Cergy Pontoise&keywords=${selectedJobcard.name}`,
@@ -43,14 +44,20 @@ const Detail = () => {
     axios
       .request(inokufuOptions)
       .then(function(response) {
+        if (unmounted) return;
         log("info", `Data from inokufu: ${response.data.response.content}`);
         setInokufuData(response.data.response.content);
         setInokufuDataLoaded(true);
       })
       .catch(function(error) {
+        if (unmounted) return;
         setInokufuApiError(true);
         log("error", `Failed to get data from Inokufu: ${error}`);
       });
+
+    return () => {
+      unmounted = true;
+    };
   }, [selectedJobcard]);
 
   if (selectedJobcard) {
