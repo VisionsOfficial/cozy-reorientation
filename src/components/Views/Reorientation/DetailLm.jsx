@@ -149,8 +149,6 @@ const DetailLm = () => {
             )}
           </div>
         </div>
-        <Conseiller />
-        <TabNavReo />
       </div>
       <div className="v-btn-container">
         <RouterLink to="/SoftSkills" className="v-btn-nav btnBack">

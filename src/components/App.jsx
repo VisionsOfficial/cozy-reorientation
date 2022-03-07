@@ -21,6 +21,7 @@ import SoftSkills from "src/components/Views/Reorientation/SoftSkills.jsx";
 import DetailLm from "src/components/Views/Reorientation/DetailLm.jsx";
 import Match from "src/components/Views/Reorientation/Match.jsx";
 import ConseillerPage from "src/components/Views/Reorientation/ConseillerPage.jsx";
+import End from "./Views/Reorientation/End";
 
 import useBreakpoints from "cozy-ui/transpiled/react/hooks/useBreakpoints";
 
@@ -109,6 +110,7 @@ const App = () => {
                     path="/partage-a-ton-conseiller"
                     component={ConseillerPage}
                   />
+                  <Route path="/end" component={End}/>
                   <Redirect from="/" to="/index" />
                   <Redirect from="*" to="/index" />
                 </Switch>
