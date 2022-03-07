@@ -4,16 +4,29 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import { useJsonFiles } from "../../Hooks/useJsonFiles";
-import dynamique from "../../../assets/dynamique.svg";
-import rapide from "../../../assets/rapide.svg";
-import sensible from "../../../assets/sensible.svg";
-import respectueux from "../../../assets/respectueux.svg";
 import axios from "axios";
 import { useDataOfType } from "../../Hooks/useDataOfType";
 import { sendMail } from "../../../utils/sendMail";
 import { useClient } from "cozy-client";
 import log from "cozy-logger";
 import Loader from "./componentsReo/loader/Loader";
+
+const possibleBadges = [
+  "dynamique",
+  "empathique",
+  "explorateur",
+  "optimiste",
+  "organise",
+  "pluriactif",
+  "pragmatique",
+  "rapide",
+  "respectueux",
+  "sensible"
+];
+
+const getSVGPathForBadge = badgeName => {
+  return `/img/${badgeName.toLowerCase()}.svg`;
+};
 
 const ConseillerPage = () => {
   const client = useClient();
@@ -26,7 +39,13 @@ const ConseillerPage = () => {
   const [ino, setIno] = useState({});
 
   const datas = jsonFiles.orientoi.data.jobCards;
-  // const badges = jsonFiles.orientoi.data.badges;
+  const badges = jsonFiles.orientoi.data.badges;
+  const jobCards = datas.filter(
+    job => job.positionnement == "ça me correspond"
+  );
+  const filteredBadges = badges.filter(badge =>
+    possibleBadges.includes(badge.name)
+  );
 
   const shareToConseiller = async () => {
     /* eslint-disable no-console */
@@ -71,9 +90,7 @@ const ConseillerPage = () => {
         });
       })
       .catch(function(error) {
-        /* eslint-disable no-console */
         console.log(error);
-        /* eslint-enable no-console */
       });
   };
 
@@ -109,7 +126,7 @@ const ConseillerPage = () => {
             <div className="contener-info">
               <h3>Les métiers sur lesquels tu es positionné :</h3>
               <div className="content-letter">
-                {datas.map(({ name }, index) => (
+                {jobCards.map(({ name }, index) => (
                   <Accordion key={index} className="content-accor">
                     <AccordionSummary
                       className="accor-title"
@@ -168,33 +185,17 @@ const ConseillerPage = () => {
               </div>
 
               <h3>Tes badges de personnalité :</h3>
-              <div className="content-letter">
-                {/* {badges.map(({ name, value, icon }, index) => {
+              <div className="content-badge">
+                {filteredBadges.map(({ name, valeur, icon }, index) => {
                   return (
-                    <div key={index} className="lettre">
-                      <img className="vectordeux" src={vectorDeux} alt="" />
-                      <p>{name}</p>
+                    <div key={index} className="badge">
+                      <img src={icon || getSVGPathForBadge(name)} alt={name} />
+                      <p>
+                        {name} : {valeur}%
+                      </p>
                     </div>
                   );
-                })} */}
-                <div className="content-badge">
-                  <div className="badge">
-                    <img src={sensible} alt="" />
-                    <p>sensible : 20%</p>
-                  </div>
-                  <div className="badge">
-                    <img src={dynamique} alt="" />
-                    <p>dynamique : 16%</p>
-                  </div>
-                  <div className="badge">
-                    <img src={rapide} alt="" />
-                    <p>rapide : 25%</p>
-                  </div>
-                  <div className="badge">
-                    <img src={respectueux} alt="" />
-                    <p>respectueux : 32%</p>
-                  </div>
-                </div>
+                })}
               </div>
             </div>
           </AccordionDetails>
