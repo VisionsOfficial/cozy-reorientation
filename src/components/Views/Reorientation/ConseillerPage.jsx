@@ -155,16 +155,16 @@ const ConseillerPage = () => {
               <h3>Tes soft skills :</h3>
               <div className="content-soft recap">
                 {!skillsLoaded && <Loader />}
-                {!skillsError &&
-                  sortedSkills.length > 0 &&
-                  sortedSkills.map((skill, index) => (
-                    <div key={index} className="soft">
-                      <p>
+                <div className="soft">
+                  {!skillsError &&
+                    sortedSkills.length > 0 &&
+                    sortedSkills.map((skill, index) => (
+                      <p key={index}>
                         {skill.name.charAt(0).toUpperCase() +
                           skill.name.slice(1)}
                       </p>
-                    </div>
-                  ))}
+                    ))}
+                </div>
               </div>
 
               <h3>Tes badges de personnalité :</h3>

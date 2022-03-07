@@ -45,6 +45,11 @@ const SoftSkills = () => {
         "Veuillez sélectionner une des deux options. Si vous avez importé une lettre de motivation, laissez le champ d'écriture manuscrite vide. Si vous préférez écrire votre lettre à la main, veuillez retirer le fichier importé."
       );
 
+    if (!uploadedFile && !letterContent.current.value)
+      return alert("Veuillez rajouter du contenu à votre lettre");
+
+    const setTitle = letterTitle.current.value;
+
     setLettersLoaded(false);
 
     const textContent = uploadedFile
@@ -55,7 +60,7 @@ const SoftSkills = () => {
       .save({
         _type: "visions.reorientation",
         currentType: "motivation-letter",
-        title: letterTitle.current.value,
+        title: setTitle,
         content: textContent,
         softSkills: [],
         softSkillsSaved: false
@@ -151,7 +156,9 @@ const SoftSkills = () => {
             <span role="button">{fileUploadText}</span>
           </FileInput>
           {uploadedFile && (
-            <button className="btnRemoveFile" onClick={() => removeFile()}>Retirer le fichier</button>
+            <button className="btnRemoveFile" onClick={() => removeFile()}>
+              Retirer le fichier
+            </button>
           )}
           <h3>Ecris ta lettre de motivation :</h3>
           <Textarea className="textArea" ref={letterContent}></Textarea>

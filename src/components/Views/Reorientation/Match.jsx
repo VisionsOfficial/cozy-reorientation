@@ -182,12 +182,12 @@ const SoftSkills = () => {
                   </AccordionDetails>
                 </Accordion>
               </div> */}
-              {letterSkills.length != 0 &&
-                letterSkills.map((skill, index) => (
-                  <div key={index} className="soft">
-                    <p>{skill}</p>
-                  </div>
-                ))}
+              <div className="soft">
+                {letterSkills.length != 0 &&
+                  letterSkills.map((skill, index) => (
+                    <p key={index}>{skill}</p>
+                  ))}
+              </div>
 
               {letterSkills.length == 0 && (
                 <h3>Aucun soft skill pour cette lettre</h3>
@@ -195,24 +195,23 @@ const SoftSkills = () => {
             </div>
             <h3 className="matchh3">Les soft skills métiers</h3>
             <div className="content-soft">
-              {jobcardSkills.map((skill, index) => (
-                <div key={index} className="soft">
-                  <p>{skill}</p>
-                </div>
-              ))}
+              <div className="soft">
+                {jobcardSkills.map((skill, index) => (
+                  <p key={index}>{skill}</p>
+                ))}
+              </div>
 
               {jobcardSkills.length == 0 && <h3>Aucun soft skill métier</h3>}
             </div>
             {/* Matching soft skills */}
             <h2>Les match !</h2>
             <div className="content-soft-match">
-              {matchedSoftSkills &&
-                matchedSoftSkills.map((skill, index) => (
-                  <div key={index} className="soft">
-                    <p>{skill}</p>
-                  </div>
-                ))}
-
+              <div className="soft">
+                {matchedSoftSkills &&
+                  matchedSoftSkills.map((skill, index) => (
+                    <p key={index}>{skill}</p>
+                  ))}
+              </div>
               {matchedSoftSkills.length == 0 && (
                 <h3>Aucun soft skill correspondant</h3>
               )}

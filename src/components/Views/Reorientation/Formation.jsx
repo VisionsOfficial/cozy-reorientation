@@ -9,12 +9,15 @@ import FormationCard from "./componentsReo/formation-card/FormationCard";
 const Formation = () => {
   const { jsonFiles } = useJsonFiles();
   const datas = jsonFiles.orientoi.data.jobCards;
+
+  const jobCards = datas.filter(el => el.positionnement == "ça me correspond");
+
   return (
     <div className="formation">
       <h2>Métiers & formations</h2>
       <p>Les métiers sur lesquels je me suis positionné :</p>
       <div className="content-activity">
-        {datas.map(({ name, id }, index) => (
+        {jobCards.map(({ name, id }, index) => (
           <FormationCard
             key={index}
             name={name}

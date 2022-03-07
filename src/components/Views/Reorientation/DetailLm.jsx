@@ -123,30 +123,15 @@ const DetailLm = () => {
               letterSkillsLoaded &&
               letterSkills.length == 0 && <h3>Aucun soft skill trouvé</h3>}
 
-            {!letterSkillsError &&
-              letterSkillsLoaded &&
-              letterSkills.map((skill, index) => (
-                <div key={index} className="soft">
-                  <p>{skill.name}</p>
-                  {/* <Accordion className="content-accor">
-                    <AccordionSummary className="accor-title-soft">
-                      <img src={question} alt="" />
-                    </AccordionSummary>
-                    <AccordionDetails className="accor-detail-soft">
-                      <h3>Curiosité</h3>
-                      <p className="p-detail">
-                        La curiosité est la valeur de ceux qui ont soif
-                        d’apprendre. C’est-à-dire de comprendre, d’en savoir
-                        toujours plus. Une personne curieuse est aussi souvent
-                        quelqu’un capable de remettre les savoirs en question,
-                        de rechercher de nouvelles informations et de les
-                        analyser.
-                      </p>
-                    </AccordionDetails>
-                  </Accordion> */}
-                </div>
-              ))}
-
+            <div className="soft">
+              {!letterSkillsError &&
+                letterSkillsLoaded &&
+                letterSkills.map((skill, index) => (
+                  <p key={index}>
+                    {skill.name.charAt(0).toUpperCase() + skill.name.slice(1)}
+                  </p>
+                ))}
+            </div>
             {letterSkillsError && (
               <h3>
                 Une erreur est survenue en récupérant les soft skills auprès de
@@ -154,17 +139,12 @@ const DetailLm = () => {
               </h3>
             )}
           </div>
-          <div className="v-btn-container btnBack">
-            <RouterLink to="/SoftSkills" className="v-btn-nav">
-              Retour
-            </RouterLink>
-          </div>
         </div>
         <Conseiller />
         <TabNavReo />
       </div>
       <div className="v-btn-container">
-        <RouterLink to="/SoftSkills" className="v-btn-nav">
+        <RouterLink to="/SoftSkills" className="v-btn-nav btnBack">
           Retour
         </RouterLink>
       </div>
