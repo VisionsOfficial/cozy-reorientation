@@ -11,6 +11,7 @@ const Formation = () => {
   const datas = jsonFiles.orientoi.data.jobCards;
 
   const jobCards = datas.filter(el => el.positionnement == "ça me correspond");
+  const sectors = [...new Set(jobCards.map(card => card.type))];
 
   return (
     <div className="formation">
@@ -28,22 +29,12 @@ const Formation = () => {
         ))}
       </div>
       <p>Les secteurs sur lesquels je me suis positionné :</p>
-      <div className="content-activity">
-        {/* //! HARDCODED DATA */}
-        <FormationCard
-          key={1}
-          name={"Alternance"}
-          id={1}
-          vectorMetier={vectorMetier}
-          chev={chev}
-        />
-        <FormationCard
-          key={2}
-          name={"Marketing"}
-          id={2}
-          vectorMetier={vectorMetier}
-          chev={chev}
-        />
+      <div className="content-sectors">
+        <ul>
+          {sectors.map((sector, index) => (
+            <li key={index}>{sector}</li>
+          ))}
+        </ul>
       </div>
       <TabNavReo />
       <Conseiller />

@@ -10,28 +10,40 @@ import { sendMail } from "../../../utils/sendMail";
 import { useClient } from "cozy-client";
 import log from "cozy-logger";
 import Loader from "./componentsReo/loader/Loader";
-import { NavLink as RouterLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LettreConseillerPage from "./LetterConseillerPage";
 
-const possibleBadges = [
-  "dynamique",
-  "empathique",
-  "explorateur",
-  "optimiste",
-  "organise",
-  "pluriactif",
-  "pragmatique",
-  "rapide",
-  "respectueux",
-  "sensible"
-];
+// Assets
 
-const getSVGPathForBadge = badgeName => {
-  return `/img/${badgeName.toLowerCase()}.svg`;
+import dynamique from "../../../assets/badges/dynamique.svg";
+import empathique from "../../../assets/badges/empathique.svg";
+import explorateur from "../../../assets/badges/explorateur.svg";
+import optimiste from "../../../assets/badges/optimiste.svg";
+import organise from "../../../assets/badges/organise.svg";
+import pluriactif from "../../../assets/badges/pluriactif.svg";
+import pragmatique from "../../../assets/badges/pragmatique.svg";
+import rapide from "../../../assets/badges/rapide.svg";
+import respectueux from "../../../assets/badges/respectueux.svg";
+import sensible from "../../../assets/badges/sensible.svg";
+
+const possibleBadges = {
+  dynamique,
+  empathique,
+  explorateur,
+  optimiste,
+  organise,
+  pluriactif,
+  pragmatique,
+  rapide,
+  respectueux,
+  sensible
 };
 
 const ConseillerPage = () => {
   const client = useClient();
+
+  const [redirectToEnd, setRedirectToEnd] = useState(false);
+
   const { jsonFiles } = useJsonFiles();
   const [letters, lettersLoaded, lettersError] = useDataOfType(
     "motivation-letter"
@@ -45,9 +57,15 @@ const ConseillerPage = () => {
   const jobCards = datas.filter(
     job => job.positionnement == "ça me correspond"
   );
-  const filteredBadges = badges.filter(badge =>
-    possibleBadges.includes(badge.name)
-  );
+  const filteredBadges = () => {
+    let filtered = [];
+    for (const key in badges) {
+      if (possibleBadges[key.toLowerCase()]) {
+        filtered.push({ name: key, value: badges[key] });
+      }
+    }
+    return filtered;
+  };
 
   const shareToConseiller = async () => {
     /* eslint-disable no-console */
@@ -73,6 +91,8 @@ const ConseillerPage = () => {
     } catch (err) {
       log("error", `Failed to send email: ${err}`);
     }
+
+    setRedirectToEnd(true);
   };
 
   const getFormations = (name, index) => {
@@ -133,106 +153,111 @@ const ConseillerPage = () => {
     });
   }, []);
 
-  return (
-    <div className="Detaillm">
-      <div className="flex">
-        <h2>Partage à ton conseiller</h2>
-        <Accordion className="content-accor">
-          <AccordionSummary className="accor-title blue summary">
-            Récapitulatif
-          </AccordionSummary>
-          <AccordionDetails className="accor-detail flex center">
-            <div className="contener-info">
-              <h3>Les métiers sur lesquels tu es positionné :</h3>
-              <div className="content-letter">
-                {jobCards.map(({ name }, index) => (
-                  <Accordion key={index} className="content-accor">
-                    <AccordionSummary
-                      className="summaryJob"
-                      onClick={() => getFormations(name, index)}
-                    >
-                      {/* <LettreConseillerPage /> */}
-                      <div className="boxStyle" style={styleBox}></div>
-                      {name}
-                    </AccordionSummary>
-                    <AccordionDetails className="accor-detail">
-                      {ino[index] &&
-                        ino[index].map((formation, yndex) => (
-                          <div key={yndex} className="detail-formation-card">
-                            <h2>{formation.title}</h2>
-                          </div>
-                        ))}
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
-              <h3>Les secteurs sur lesquels tu es positionné :</h3>
-              <div className="content-letter">
-                {datas.map(({ secteur }, index) => (
-                  <div key={index} className="letter">
-                    <p>
-                      {secteur ||
-                        "Secteur non spécifié par Orientoi pour le moment"}
-                    </p>
-                  </div>
-                ))}
-              </div>
+  if (redirectToEnd) {
+    return <Redirect to="/end" />;
+  } else {
+    return (
+      <div className="Detaillm">
+        <div className="flex">
+          <h2>Partage à ton conseiller</h2>
+          <Accordion className="content-accor">
+            <AccordionSummary className="accor-title blue summary">
+              Récapitulatif
+            </AccordionSummary>
+            <AccordionDetails className="accor-detail flex center">
+              <div className="contener-info">
+                <h3>Les métiers sur lesquels tu es positionné :</h3>
+                <div className="content-letter">
+                  {jobCards.map(({ name }, index) => (
+                    <Accordion key={index} className="content-accor">
+                      <AccordionSummary
+                        className="summaryJob"
+                        onClick={() => getFormations(name, index)}
+                      >
+                        {/* <LettreConseillerPage /> */}
+                        <div className="boxStyle" style={styleBox}></div>
+                        {name}
+                      </AccordionSummary>
+                      <AccordionDetails className="accor-detail">
+                        {ino[index] &&
+                          ino[index].map((formation, yndex) => (
+                            <div key={yndex} className="detail-formation-card">
+                              <h2>{formation.title}</h2>
+                            </div>
+                          ))}
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                </div>
+                <h3>Les secteurs sur lesquels tu es positionné :</h3>
+                <div className="content-letter">
+                  {datas.map(({ secteur }, index) => (
+                    <div key={index} className="letter">
+                      <p>
+                        {secteur ||
+                          "Secteur non spécifié par Orientoi pour le moment"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
 
-              <h3>Tes lettres de motivations :</h3>
-              <div className="content-letter">
-                {!lettersLoaded && <Loader />}
-                {!lettersError &&
-                  letters.map((letter, index) => {
+                <h3>Tes lettres de motivations :</h3>
+                <div className="content-letter">
+                  {!lettersLoaded && <Loader />}
+                  {!lettersError &&
+                    letters.map((letter, index) => {
+                      return (
+                        <div key={index} className="letter">
+                          <p>{letter.title}</p>
+                        </div>
+                      );
+                    })}
+                </div>
+                <h3>Tes soft skills :</h3>
+                <div className="content-soft recap">
+                  {!skillsLoaded && <Loader />}
+                  <div className="soft">
+                    {!skillsError &&
+                      sortedSkills.length > 0 &&
+                      sortedSkills.map((skill, index) => (
+                        <p key={index}>
+                          {skill.name.charAt(0).toUpperCase() +
+                            skill.name.slice(1)}
+                        </p>
+                      ))}
+                  </div>
+                </div>
+
+                <h3>Tes badges de personnalité :</h3>
+                <div className="content-badge">
+                  {filteredBadges().map(({ name, value }, index) => {
                     return (
-                      <div key={index} className="letter">
-                        <p>{letter.title}</p>
+                      <div key={index} className="badge">
+                        <img
+                          src={possibleBadges[name.toLowerCase()]}
+                          alt={name}
+                        />
+                        <p>
+                          {name} : {value}%
+                        </p>
                       </div>
                     );
                   })}
-              </div>
-              <h3>Tes soft skills :</h3>
-              <div className="content-soft recap">
-                {!skillsLoaded && <Loader />}
-                <div className="soft">
-                  {!skillsError &&
-                    sortedSkills.length > 0 &&
-                    sortedSkills.map((skill, index) => (
-                      <p key={index}>
-                        {skill.name.charAt(0).toUpperCase() +
-                          skill.name.slice(1)}
-                      </p>
-                    ))}
                 </div>
               </div>
-
-              <h3>Tes badges de personnalité :</h3>
-              <div className="content-badge">
-                {filteredBadges.map(({ name, valeur, icon }, index) => {
-                  return (
-                    <div key={index} className="badge">
-                      <img src={icon || getSVGPathForBadge(name)} alt={name} />
-                      <p>
-                        {name} : {valeur}%
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <RouterLink to="/end">
+            </AccordionDetails>
+          </Accordion>
           <button className="v-btn-next" onClick={() => shareToConseiller()}>
             Je partage à un conseiller
           </button>
-        </RouterLink>
-        {/* <RouterLink to="/" className="v-btn-next">
-          Je partage à un conseiller
-        </RouterLink> */}
+          {/* <RouterLink to="/" className="v-btn-next">
+            Je partage à un conseiller
+          </RouterLink> */}
+        </div>
+        <TabNavReo />
       </div>
-      <TabNavReo />
-    </div>
-  );
+    );
+  }
 };
 
 export default ConseillerPage;

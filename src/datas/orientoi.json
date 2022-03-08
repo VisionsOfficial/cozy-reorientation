@@ -1,42 +1,13 @@
 {
-  "badges": [
-    {
-      "name": "adaptable",
-      "valeur": 10,
-      "icon": ""
-    },
-    {
-      "name": "concentre",
-      "valeur": 23,
-      "icon": ""
-    },
-    {
-      "name": "dynamique",
-      "valeur": 9,
-      "icon": ""
-    },
-    {
-      "name": "optimiste",
-      "valeur": 13,
-      "icon": ""
-    },
-    {
-      "name": "rapide",
-      "valeur": 17,
-      "icon": ""
-    },
-    {
-      "name": "respectueux",
-      "valeur": 13,
-      "icon": ""
-    },
-    {
-      "name": "studieux",
-      "valeur": 15,
-      "icon": ""
-    }
-  ],
-
+  "badges": {
+    "ADAPTABLE": 10,
+    "CONCENTRE": 23,
+    "DYNAMIQUE": 9,
+    "OPTIMISTE": 13,
+    "RAPIDE": 17,
+    "RESPECTUEUX": 13,
+    "STUDIEUX": 15
+  },
   "jobCards": [
     {
       "id": 1,
