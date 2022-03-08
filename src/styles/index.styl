@@ -315,7 +315,7 @@ a.v-pass
                 width 87%
                 margin 5px
                 padding-left 20px
-                @media (min-width 1200px)
+                @media (min-width 650px)
                     width: auto
                 p
                     width auto
@@ -386,7 +386,7 @@ a.v-pass
 .v-btn-next 
     // transform translate(-50%, 0) scale(0.7)
     left 40% !important
-    margin-top 280px !important
+    // margin-top 280px !important
     margin-bottom 50px
     z-index 1 !important
     filter drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
@@ -457,7 +457,10 @@ a.v-pass
         font-weight 700
         font-size 22px
         margin-top 20px !important
-
+        cursor: pointer
+    .quatre:disabled
+        background: #ccc;
+        color: hsl(195, 69%, 53%)
     .content-letter
         display flex
         flex-wrap wrap
@@ -470,7 +473,7 @@ a.v-pass
             background #C1ECFB
             margin 10px
             border-radius 10px
-            height 50px   
+            min-height 50px   
             display flex
             flex-wrap wrap
             align-items center
@@ -483,6 +486,9 @@ a.v-pass
                 background rgba(33, 187, 239, 1)
                 width: 45px
                 height: 100%
+                border-top-left-radius: 10px
+                border-bottom-left-radius: 10px
+                position absolute
             input[type="radio" i]
                 appearance:  none !important
                 border solid 3px white !important
@@ -494,6 +500,7 @@ a.v-pass
                 left 5px
                 top 13px
                 z-index 100000 !important
+                cursor: pointer
             input[type="radio" i]:checked
                 background white !important
                 appearance:  none !important
@@ -512,7 +519,8 @@ a.v-pass
                 width 80%
                 display flex
                 align-items center
-                padding-left 50px
+                padding 5px 5px 5px 70px
+                text-align: start
             img 
                 width 100%
                 height auto
@@ -531,9 +539,6 @@ a.v-pass
                 width 53%
                 left -62px
                 top -62px
-                
-
-
 .file-selector
     display flex 
     flex-wrap wrap
@@ -572,7 +577,10 @@ a.v-pass
     display flex
     flex-wrap wrap
     justify-content center
-    margin: 50px 20px
+    margin: 0px 20px
+    margin-bottom: 50px;
+    @media (min-width: 1029px)
+        margin-top: 50px
 .flex
     display flex
     flex-wrap wrap
@@ -580,7 +588,10 @@ a.v-pass
     flex-direction: column
     align-items: center
     width: 100%
-    margin-top: 20px
+    @media (max-width: 1029px)
+        margin-top: 50px
+    @media (max-width: 420px)
+        flex-direction: row    
     h2
         width 90%
         color black
@@ -666,6 +677,7 @@ a.v-pass
             flex-wrap wrap
             width 100%
             justify-content: center
+            margin-bottom 20px
             p
                 width 150px
                 background rgba(255, 229, 110, 0.3)
@@ -752,14 +764,30 @@ a.v-pass
         p 
             font-size 20px
             color purple
+.summaryContainer
+    width: 90%
+    margin: auto
+    .MuiAccordion-root-120:before
+        display: none
+    .MuiAccordion-root-31:before
+        display: none
+    .MuiAccordionSummary-expandIcon-69.MuiAccordionSummary-expandIcon-69
+        position absolute !important
+        right 20px !important
+        top: 6px !important
 .summary 
     width: 90%!important
+.summaryJobContainer
+    border none !important
+    box-shadow: none!important
+    overflow: visible!important
 .summaryJob
-    width: 95%!important
+    display: flex!important
+    flex-wrap: wrap!important
     background: #c1ecfb!important
-    margin: 5px!important
+    margin: 5px 0px!important
     border-radius: 10px!important
-    height: 50px!important
+    // min-height: 50px!important
     display: flex!important
     flex-wrap: wrap!important
     color: #000!important
@@ -767,15 +795,21 @@ a.v-pass
     position: relative!important
     filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.25))
     padding-left 50px!important
+    padding-right 35px!important
     .boxStyle
-        background rgba(33, 187, 239, 1)
+        background #21BBEF
         border-radius: 10px
         width: 45px
         height: 100%
         position: absolute
         top: 0
         left: 0
-
+    p
+        margin-left 15px
+.Sector
+    margin: 20px 0px!important
+.summarySoftSkill
+    margin: 5px!important
 .endContainer
     display: flex
     justify-content: center

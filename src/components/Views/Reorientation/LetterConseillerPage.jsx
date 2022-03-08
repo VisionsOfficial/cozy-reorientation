@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const LettreConseillerPage =  (name) => {
+const LettreConseillerPage =  ({name}) => {
 
     const [styleBox, setStyleBox] = useState(null);
 
@@ -18,11 +18,10 @@ const LettreConseillerPage =  (name) => {
             borderBottomRightRadius: randomBorderRadius(20, 100)
         })
     }, [])
-    
+
     return (
         <>
             <div className="boxStyle" style={styleBox}></div>
-            {name}
         </>
     )
 }

@@ -116,23 +116,6 @@ const ConseillerPage = () => {
     }
   }, [skills]);
 
-  const [styleBox, setStyleBox] = useState(null);
-
-  useEffect(() => {
-    const randomBorderRadius = (min, max) => {
-      return (
-        (
-          Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
-          Math.ceil(min)
-        ).toString() + "px"
-      );
-    };
-    setStyleBox({
-      borderTopRightRadius: randomBorderRadius(20, 100),
-      borderBottomRightRadius: randomBorderRadius(20, 100)
-    });
-  }, []);
-
   return (
     <div className="Detaillm">
       <div className="flex">
@@ -142,17 +125,16 @@ const ConseillerPage = () => {
             Récapitulatif
           </AccordionSummary>
           <AccordionDetails className="accor-detail flex center">
-            <div className="contener-info">
-              <h3>Les métiers sur lesquels tu es positionné :</h3>
+            <div className="summaryContainer">
               <div className="content-letter">
+                <h3>Les métiers sur lesquels tu es positionné :</h3>
                 {jobCards.map(({ name }, index) => (
-                  <Accordion key={index} className="content-accor">
+                  <Accordion key={index} className="summaryJobContainer">
                     <AccordionSummary
                       className="summaryJob"
                       onClick={() => getFormations(name, index)}
                     >
-                      {/* <LettreConseillerPage /> */}
-                      <div className="boxStyle" style={styleBox}></div>
+                      <LettreConseillerPage />
                       {name}
                     </AccordionSummary>
                     <AccordionDetails className="accor-detail">
@@ -169,7 +151,8 @@ const ConseillerPage = () => {
               <h3>Les secteurs sur lesquels tu es positionné :</h3>
               <div className="content-letter">
                 {datas.map(({ secteur }, index) => (
-                  <div key={index} className="letter">
+                  <div key={index} className="letter summaryJob Sector">
+                    <LettreConseillerPage />
                     <p>
                       {secteur ||
                         "Secteur non spécifié par Orientoi pour le moment"}
@@ -184,20 +167,21 @@ const ConseillerPage = () => {
                 {!lettersError &&
                   letters.map((letter, index) => {
                     return (
-                      <div key={index} className="letter">
+                      <div key={index} className="letter summaryJob Sector">
+                        <LettreConseillerPage />
                         <p>{letter.title}</p>
                       </div>
                     );
                   })}
               </div>
               <h3>Tes soft skills :</h3>
-              <div className="content-soft recap">
+              <div className="content-soft">
                 {!skillsLoaded && <Loader />}
                 <div className="soft">
                   {!skillsError &&
                     sortedSkills.length > 0 &&
                     sortedSkills.map((skill, index) => (
-                      <p key={index}>
+                      <p key={index} className="summarySoftSkill">
                         {skill.name.charAt(0).toUpperCase() +
                           skill.name.slice(1)}
                       </p>
