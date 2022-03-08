@@ -11,7 +11,7 @@ import { useClient } from "cozy-client";
 import log from "cozy-logger";
 import Loader from "./componentsReo/loader/Loader";
 import { Redirect } from "react-router-dom";
-import LettreConseillerPage from "./LetterConseillerPage";
+import LettreConseillerPage from "./componentsReo/RandomBorderedDesign";
 
 // Assets
 
@@ -57,6 +57,7 @@ const ConseillerPage = () => {
   const jobCards = datas.filter(
     job => job.positionnement == "ça me correspond"
   );
+  const sectors = [...new Set(jobCards.map(card => card.type))];
   const filteredBadges = () => {
     let filtered = [];
     for (const key in badges) {
@@ -84,9 +85,9 @@ const ConseillerPage = () => {
     try {
       await sendMail(client, {
         mode: "from",
-        to: [{ name: "NAME", email: "EMAIL" }],
-        subjects: "SUBJECT",
-        parts: [{ type: "text/plain", body: "STRING_BODY" }]
+        to: [{ name: "Conseiller", email: "laure.jeuneu@cyu.fr" }],
+        subjects: "Bilan de Réorientation",
+        parts: [{ type: "text/plain", body: "STRING_BODY" }] // TODO Add body
       });
     } catch (err) {
       log("error", `Failed to send email: ${err}`);
@@ -136,23 +137,6 @@ const ConseillerPage = () => {
     }
   }, [skills]);
 
-  const [styleBox, setStyleBox] = useState(null);
-
-  useEffect(() => {
-    const randomBorderRadius = (min, max) => {
-      return (
-        (
-          Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) +
-          Math.ceil(min)
-        ).toString() + "px"
-      );
-    };
-    setStyleBox({
-      borderTopRightRadius: randomBorderRadius(20, 100),
-      borderBottomRightRadius: randomBorderRadius(20, 100)
-    });
-  }, []);
-
   if (redirectToEnd) {
     return <Redirect to="/end" />;
   } else {
@@ -165,17 +149,16 @@ const ConseillerPage = () => {
               Récapitulatif
             </AccordionSummary>
             <AccordionDetails className="accor-detail flex center">
-              <div className="contener-info">
+              <div className="summaryContainer">
                 <h3>Les métiers sur lesquels tu es positionné :</h3>
                 <div className="content-letter">
                   {jobCards.map(({ name }, index) => (
-                    <Accordion key={index} className="content-accor">
+                    <Accordion key={index} className="summaryJobContainer">
                       <AccordionSummary
                         className="summaryJob"
                         onClick={() => getFormations(name, index)}
                       >
-                        {/* <LettreConseillerPage /> */}
-                        <div className="boxStyle" style={styleBox}></div>
+                        <LettreConseillerPage />
                         {name}
                       </AccordionSummary>
                       <AccordionDetails className="accor-detail">
@@ -191,12 +174,10 @@ const ConseillerPage = () => {
                 </div>
                 <h3>Les secteurs sur lesquels tu es positionné :</h3>
                 <div className="content-letter">
-                  {datas.map(({ secteur }, index) => (
-                    <div key={index} className="letter">
-                      <p>
-                        {secteur ||
-                          "Secteur non spécifié par Orientoi pour le moment"}
-                      </p>
+                  {sectors.map((sector, index) => (
+                    <div key={index} className="letter summaryJob Sector">
+                      <LettreConseillerPage />
+                      <p>{sector}</p>
                     </div>
                   ))}
                 </div>
@@ -207,7 +188,8 @@ const ConseillerPage = () => {
                   {!lettersError &&
                     letters.map((letter, index) => {
                       return (
-                        <div key={index} className="letter">
+                        <div key={index} className="letter summaryJob Sector">
+                          <LettreConseillerPage />
                           <p>{letter.title}</p>
                         </div>
                       );
@@ -220,7 +202,7 @@ const ConseillerPage = () => {
                     {!skillsError &&
                       sortedSkills.length > 0 &&
                       sortedSkills.map((skill, index) => (
-                        <p key={index}>
+                        <p key={index} className="summarySoftSkill">
                           {skill.name.charAt(0).toUpperCase() +
                             skill.name.slice(1)}
                         </p>
@@ -250,9 +232,6 @@ const ConseillerPage = () => {
           <button className="v-btn-next" onClick={() => shareToConseiller()}>
             Je partage à un conseiller
           </button>
-          {/* <RouterLink to="/" className="v-btn-next">
-            Je partage à un conseiller
-          </RouterLink> */}
         </div>
         <TabNavReo />
       </div>
