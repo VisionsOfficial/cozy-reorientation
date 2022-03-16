@@ -1,4 +1,7 @@
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf";
+import * as worker from "pdfjs-dist/legacy/build/pdf.worker";
+import * as workerEntry from "pdfjs-dist/legacy/build/pdf.worker.entry";
+import * as sandbox from "pdfjs-dist/legacy/build/pdf.sandbox";
 
 export const getPdfText = async src => {
   return new Promise(res => {
@@ -15,4 +18,15 @@ export const getPdfText = async src => {
 
     fr.readAsArrayBuffer(src);
   });
+};
+
+// Unused just to stop linting errors or unused-vars
+// Needed for pdfjs to work
+export const lintFix = () => {
+  const x = {
+    worker,
+    workerEntry,
+    sandbox
+  };
+  return x;
 };

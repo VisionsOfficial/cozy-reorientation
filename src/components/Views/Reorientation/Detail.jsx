@@ -77,20 +77,20 @@ const Detail = () => {
               <div className="contener-info">
                 <h3>Définition</h3>
                 <p>
-                  Recherche et définit les concepts créatifs de projets multimédia
-                  (communication, jeux vidéo, ...), supervise la réalisation des
-                  projets retenus (maquette, rough, story-board) en cohérence avec
-                  la stratégie commerciale. <br />
+                  Recherche et définit les concepts créatifs de projets
+                  multimédia (communication, jeux vidéo, ...), supervise la
+                  réalisation des projets retenus (maquette, rough, story-board)
+                  en cohérence avec la stratégie commerciale. <br />
                   Peut coordonner une équipe.
                 </p>
               </div>
               <div className="contener-info">
                 <h3>Accès au métier</h3>
                 <p>
-                  Cet emploi/métier est accessible avec un diplôme de niveau Bac+2
-                  (BTS, DUT, ...) à Master (Master professionnel, ...) dans les
-                  secteurs de la communication, du multimédia, du marketing, du
-                  commerce et de la publicité. <br />
+                  Cet emploi/métier est accessible avec un diplôme de niveau
+                  Bac+2 (BTS, DUT, ...) à Master (Master professionnel, ...)
+                  dans les secteurs de la communication, du multimédia, du
+                  marketing, du commerce et de la publicité. <br />
                   <br />
                   Une formation artistique (École des beaux-arts, des arts
                   décoratifs...) peut être demandée.
@@ -108,10 +108,10 @@ const Detail = () => {
                 <h3>Condition du métier</h3>
                 <p>
                   L&apos;activité de cet emploi/métier s&apos;exerce au sein
-                  d&apos;agences de publicité, de communication, de promotion des
-                  ventes, ou en indépendant, en relation avec différents services
-                  (direction, service informatique, communication, ...) et
-                  intervenants (clients, responsables de la production,
+                  d&apos;agences de publicité, de communication, de promotion
+                  des ventes, ou en indépendant, en relation avec différents
+                  services (direction, service informatique, communication, ...)
+                  et intervenants (clients, responsables de la production,
                   imprimeurs, photographes, réalisateurs de films, ...).
                   <br />
                   <br />
@@ -181,7 +181,9 @@ const Detail = () => {
                 inokufuDataLoaded &&
                 inokufuData.length == 0 && <h3>Aucune formation associée</h3>}
               {!inokufuApiError && !inokufuDataLoaded && <Loader />}
-              {inokufuApiError && <h3>Erreur lors du chargement des données</h3>}
+              {inokufuApiError && (
+                <h3>Erreur lors du chargement des données</h3>
+              )}
             </AccordionDetails>
           </Accordion>
           <Accordion className="content-accor ">

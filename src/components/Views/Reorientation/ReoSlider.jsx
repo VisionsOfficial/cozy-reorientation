@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import svg from "../../../assets/bg-info.svg";
 import conseiller from "../../../assets/conseiller.svg";
 import { NavLink as RouterLink } from "react-router-dom";
 

@@ -22,12 +22,14 @@ import PageLoader from "./componentsReo/page-loader/PageLoader";
 import LettreMatch from "./LetterMatch";
 
 const SoftSkills = () => {
-
   const letterInputs = useRef();
   const jobInputs = useRef();
 
   const { jsonFiles } = useJsonFiles();
   const datas = jsonFiles.orientoi.data.jobCards;
+  const jobCards = datas.filter(
+    job => job.positionnement == "ça me correspond"
+  );
 
   const [letters, lettersLoaded] = useDataOfType("motivation-letter");
 
@@ -95,15 +97,18 @@ const SoftSkills = () => {
     if (!letterInputs.current) return false;
     if (!jobInputs.current) return false;
 
-    let isValid = false
-    let inputLetter = letterInputs.current.querySelector('input[name="letterSelect"]:checked');
-    let inputJob = jobInputs.current.querySelector('input[name="jobcardSelect"]:checked');
+    let isValid = false;
+    let inputLetter = letterInputs.current.querySelector(
+      'input[name="letterSelect"]:checked'
+    );
+    let inputJob = jobInputs.current.querySelector(
+      'input[name="jobcardSelect"]:checked'
+    );
     if (inputLetter && inputJob) {
-      isValid = true
+      isValid = true;
     }
-    console.log({inputLetter, inputJob, isValid})
-    return isValid
-  }
+    return isValid;
+  };
 
   if (
     (!letters || !letters.length || !checkIfAnalyzed(letters)) &&
@@ -142,14 +147,26 @@ const SoftSkills = () => {
             {!lettersLoaded && <Loader />}
             {letters.map(({ title }, index) => {
               return (
-                <LettreMatch key={index} title={title} onclick={setSelectedLetterIndex} id={index} name={"letterSelect"}/>
+                <LettreMatch
+                  key={index}
+                  title={title}
+                  onclick={setSelectedLetterIndex}
+                  id={index}
+                  name={"letterSelect"}
+                />
               );
             })}
           </div>
           <p>Puis le métier :</p>
           <div ref={jobInputs} className="content-letter match">
-            {datas.map(({ name, id }, index) => (
-               <LettreMatch key={index} title={name} onclick={setSelectedJobId} id={id} name={"jobcardSelect"}/>
+            {jobCards.map(({ name, id }, index) => (
+              <LettreMatch
+                key={index}
+                title={name}
+                onclick={setSelectedJobId}
+                id={id}
+                name={"jobcardSelect"}
+              />
             ))}
           </div>
           {formValid() && (
