@@ -1,14 +1,14 @@
 {
   "name": "Bilan de RéOrientation",
-  "slug": "bilanorientation",
+  "slug": "reorientation",
   "icon": "icon.svg",
   "categories": [],
   "version": "0.1.0",
   "licence": "AGPL-3.0",
-  "editor": "",
-  "source": "https://github.com/crash/bilanorientation.git@build",
+  "editor": "visions",
+  "source": "https://github.com/visionsOfficial/cozy-reorientation.git@build",
   "developer": {
-    "name": "crash",
+    "name": "visions",
     "url": ""
   },
   "routes": {
@@ -16,6 +16,11 @@
       "folder": "/",
       "index": "index.html",
       "public": false
+    },
+    "/public": {
+      "folder": "/",
+      "index": "index.html",
+      "public": true
     }
   },
   "permissions": {
@@ -37,6 +42,11 @@
     "reorientation": {
       "description": "Information on the Visions Bilan de Réorientation",
       "type": "visions.reorientation",
+      "verbs": ["ALL"]
+    },
+    "visions": {
+      "description": "General Visions related information",
+      "type": "visions.general",
       "verbs": ["ALL"]
     },
     "mail": {

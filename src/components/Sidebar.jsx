@@ -1,19 +1,19 @@
-import React from 'react'
-import { NavLink as RouterLink } from 'react-router-dom'
+import React from "react";
+import { NavLink as RouterLink } from "react-router-dom";
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
+import { useI18n } from "cozy-ui/transpiled/react/I18n";
+import UISidebar from "cozy-ui/transpiled/react/Sidebar";
 import Nav, {
   NavItem,
   NavIcon,
   NavText,
   NavLink
-} from 'cozy-ui/transpiled/react/Nav'
+} from "cozy-ui/transpiled/react/Nav";
 
-import BulletPoint from 'src/assets/icons/icon-bullet-point.svg'
+import BulletPoint from "src/assets/icons/icon-bullet-point.svg";
 
 const Sidebar = () => {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
     <UISidebar>
@@ -25,7 +25,7 @@ const Sidebar = () => {
             activeClassName={NavLink.activeClassName}
           >
             <NavIcon icon={BulletPoint} />
-            <NavText>{t('nav.todos')}</NavText>
+            <NavText>{t("nav.todos")}</NavText>
           </RouterLink>
         </NavItem>
         <NavItem>
@@ -35,7 +35,7 @@ const Sidebar = () => {
             activeClassName={NavLink.activeClassName}
           >
             <NavIcon icon={BulletPoint} />
-            <NavText>{t('nav.hello_nav_2')}</NavText>
+            <NavText>{t("nav.hello_nav_2")}</NavText>
           </RouterLink>
         </NavItem>
         <NavItem>
@@ -45,12 +45,12 @@ const Sidebar = () => {
             activeClassName={NavLink.activeClassName}
           >
             <NavIcon icon={BulletPoint} />
-            <NavText>{t('nav.hello_nav_3')}</NavText>
+            <NavText>{t("nav.hello_nav_3")}</NavText>
           </RouterLink>
         </NavItem>
       </Nav>
     </UISidebar>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

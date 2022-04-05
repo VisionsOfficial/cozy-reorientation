@@ -7,7 +7,7 @@ import { useJsonFiles } from "../../Hooks/useJsonFiles";
 import axios from "axios";
 import { useDataOfType } from "../../Hooks/useDataOfType";
 import { sendMail } from "../../../utils/sendMail";
-import { useClient } from "cozy-client";
+import { useClient, Q } from "cozy-client";
 import log from "cozy-logger";
 import Loader from "./componentsReo/loader/Loader";
 import { Redirect } from "react-router-dom";
@@ -70,25 +70,81 @@ const ConseillerPage = () => {
 
   const shareToConseiller = async () => {
     /* eslint-disable no-console */
-    console.log({ jobs: datas.map(el => el.name) });
-    console.log({ sector: datas.map(el => el.secteur || "no data") });
-    console.log({
-      letters: letters.map(el => {
-        return {
-          title: el.title,
-          content: el.content
-        };
-      })
+
+    const recapSkills = sortedSkills;
+    const recapJobs = jobCards;
+    const recapBadges = badges;
+    const recapFormations = []; // todo
+    const recapLetters = letters.map(el => {
+      return {
+        title: el.title,
+        content: el.content
+      };
     });
-    console.log({ skills: sortedSkills });
+
+    let existingRecap = null;
 
     try {
-      await sendMail(client, {
-        mode: "from",
-        to: [{ name: "Conseiller", email: "laure.jeuneu@cyu.fr" }],
-        subjects: "Bilan de Réorientation",
-        parts: [{ type: "text/plain", body: "STRING_BODY" }] // TODO Add body
+      const queryDef = Q("visions.general").where({
+        category: "reorientation_recap"
       });
+      existingRecap = await client.query(queryDef);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+    let documentId;
+
+    console.log(existingRecap);
+
+    if (existingRecap.data.length === 0) {
+      // Create
+      try {
+        const createResponse = await client.save({
+          _type: "visions.general",
+          jobCards: recapJobs,
+          softSkills: recapSkills,
+          motivationLetters: recapLetters,
+          badges: recapBadges,
+          formations: recapFormations
+        });
+        console.log(createResponse);
+        documentId = createResponse.data.id;
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      // Update
+      const existingDocument = existingRecap.data[0];
+      existingDocument.jobCards = recapJobs;
+      existingDocument.softSkills = recapSkills;
+      existingDocument.motivationLetters = recapLetters;
+      existingDocument.badges = recapBadges;
+      existingDocument.formations = recapFormations;
+      await client.save(existingDocument);
+      documentId = existingDocument.id;
+    }
+
+    const shareObject = await client
+      .collection("io.cozy.permissions")
+      .createSharingLink({
+        _id: documentId,
+        _type: "visions.general"
+      });
+
+    const shortCode = shareObject.data.attributes.shortcodes.email;
+    const url = `${location.protocol}//${location.host}/public?sharecode=${shortCode}`;
+    console.log(url);
+
+    try {
+      const mailJob = await sendMail(client, {
+        mode: "from",
+        to: [{ name: "Conseiller", email: "felix@visionspol.eu" }],
+        subjects: "Bilan de Réorientation",
+        parts: [{ type: "text/plain", html: "Bilan de Réorientation: " + url }] // TODO Add body
+      });
+      console.log(mailJob);
     } catch (err) {
       log("error", `Failed to send email: ${err}`);
     }
@@ -152,8 +208,17 @@ const ConseillerPage = () => {
               <div className="summaryContainer">
                 <h3>Les métiers sur lesquels tu es positionné :</h3>
                 <div className="content-letter">
-                  {jobCards.map(({ name }, index) => (
-                    <Accordion key={index} className="summaryJobContainer">
+                  {jobCards.map(({ name }, index) => {
+                    return (
+                      <div key={index} className="summaryJob Sector">
+                        <LettreConseillerPage
+                          onClick={() => getFormations(name, index)}
+                        />
+                        <p>{name}</p>
+                      </div>
+                    );
+                    {
+                      /* <Accordion key={index} className="summaryJobContainer">
                       <AccordionSummary
                         className="summaryJob"
                         onClick={() => getFormations(name, index)}
@@ -169,8 +234,9 @@ const ConseillerPage = () => {
                             </div>
                           ))}
                       </AccordionDetails>
-                    </Accordion>
-                  ))}
+                    </Accordion> */
+                    }
+                  })}
                 </div>
                 <h3>Les secteurs sur lesquels tu es positionné :</h3>
                 <div className="content-letter">

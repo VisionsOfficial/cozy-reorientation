@@ -1,3 +1,3 @@
-'use strict'
+"use strict";
 
-module.exports = 'test-file-stub'
+module.exports = "test-file-stub";

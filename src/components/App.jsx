@@ -31,6 +31,7 @@ import Header from "src/components/Header";
 // import JobExplorationsPage from "src/components/Views/JobExplorationsPage";
 // import WipPage from "src/components/Views/WipPage";
 import { useJsonFiles } from "src/components/Hooks/useJsonFiles";
+import RecapPage from "./Views/public/RecapPage";
 
 const styles = {
   content: {
@@ -106,6 +107,7 @@ const App = () => {
                   <Route path="/SoftSkills" component={SoftSkills} />
                   <Route path="/detailLm/:id" component={DetailLm} />
                   <Route path="/matchSoft" component={Match} />
+                  <Route path="/public/recap" component={RecapPage} />
                   <Route
                     path="/partage-a-ton-conseiller"
                     component={ConseillerPage}

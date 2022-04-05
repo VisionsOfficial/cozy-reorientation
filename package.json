@@ -2,10 +2,6 @@
   "name": "bilanorientation",
   "version": "0.1.0",
   "scripts": {
-    "lint": "yarn lint:js && yarn lint:styles",
-    "lint:js": "cs lint {src,test}/**/*.{js,jsx}",
-    "lint:styles": "stylint src/styles --config ./.stylintrc",
-    "prebuild": "yarn lint",
     "build": "yarn build:browser",
     "build:browser": "cs build --browser",
     "build:mobile": "cs build --mobile",
@@ -51,6 +47,7 @@
     "cozy-client": "^27.14.4",
     "cozy-realtime": "^4.0.5",
     "cozy-scripts": "5.13.0",
+    "cozy-sharing": "^4.1.5",
     "cozy-ui": "^60.10.0",
     "pdfjs-dist": "^2.13.216",
     "react": "16.14.0",

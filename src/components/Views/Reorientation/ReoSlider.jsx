@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import conseiller from "../../../assets/conseiller.svg";
-import { NavLink as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink, Redirect } from "react-router-dom";
 
 import TabNavReo from "./componentsReo/TabNav";
 import SliderDots from "./componentsReo/slider-dots/SliderDots";
 
+function getParameterByName(paramName, url = window.location.href) {
+  // eslint-disable-next-line
+  const name = paramName.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 const ReoSlider = () => {
+  const shareCode = getParameterByName("sharecode");
   const [toggleState, setToggleState] = useState(1);
 
   const incrementState = () => {
@@ -14,6 +25,10 @@ const ReoSlider = () => {
   const toggleTab = index => {
     setToggleState(index);
   };
+
+  if (shareCode) {
+    return <Redirect to="/public/recap" />;
+  }
 
   return (
     <div>
@@ -25,7 +40,7 @@ const ReoSlider = () => {
           <div className="content-text">
             <p className={toggleState === 1 ? "list-active" : ""}>
               Découvre les formations associés aux métiers sur lequels tu t’es
-              possitionné avec Orientoi
+              positionné avec Orientoi
             </p>
             <p className={toggleState === 2 ? "list-active" : ""}>
               Découvre les soft skills associés aux fiches métiers
